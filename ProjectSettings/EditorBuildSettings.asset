@@ -8,6 +8,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SplashScreen.unity
     guid: d1c3109bdb54ad54c8a2b2838528e640
+  - enabled: 1
+    path: Assets/Scenes/Main.unity
+    guid: 0b4ec58c354bb7c49b84e762df9ee952
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: a811c23913bcf95498057b90e116f1ff,
       type: 2}
