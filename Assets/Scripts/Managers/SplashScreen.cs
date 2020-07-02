@@ -22,6 +22,7 @@ public class SplashScreen : MonoBehaviour
        float t = 0;
        while (async.isDone || t< minTime)
        {
+           t += Time.deltaTime;
            yield return null;
        }
        async.allowSceneActivation = true;
