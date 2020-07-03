@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class ScanEffectHolder : MonoBehaviour
+public class ScanEffectController : MonoBehaviour
 {
     [SerializeField] private RuneEvent OnRuneSelected;
     [SerializeField] private RuneEvent OnRuneConfirmed;
