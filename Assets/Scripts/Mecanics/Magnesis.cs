@@ -6,17 +6,17 @@ public class Magnesis : Rune
     private RaycastHit[] hits = new RaycastHit[100];
     
     private Player player;
+    private IRuneInteractable runeInteractable;
     private Rigidbody interactableRigidbody;
     private Rigidbody controllerRigidBody;
-    public Magnesis(RuneProfile profile, int layerMask)
+    public Magnesis(RuneProfile profile, int layerMask, Player player)
     {
+        this.player = player;
         this.layerMask = layerMask;
         this.profile = profile;
     }
     public override void ActivateRune()
     {
-        if (player != null)
-            player = GameObject.FindObjectOfType<Player>();
         controllerRigidBody = player.RightHand.GetComponent<Rigidbody>();
     }
 
@@ -41,10 +41,9 @@ public class Magnesis : Rune
             var hit = nearest.collider.GetComponent<IRuneInteractable>();
             if (hit != null)
             {
-                hit.SetHighLight();
                 if (PlayerInput.Instance.Confirm)
                 {
-                    hit.SetConfirm();
+                    runeInteractable = hit;
                     interactableRigidbody = hit.GetComponent<Rigidbody>();
                     IsActive = true;
                     return true;
@@ -60,6 +59,8 @@ public class Magnesis : Rune
 
         if(interactableRigidbody == null) return;
         
+        runeInteractable.SetColor(Color.yellow);
+        
         interactableRigidbody.isKinematic = true;
         Vector2 throttle = PlayerInput.Instance.RightThumbStick;
         float controllerSpeed = Vector3.Dot(controllerRigidBody.velocity.normalized, Vector3.up);
@@ -70,6 +71,8 @@ public class Magnesis : Rune
 
     public override void DeactivateRune()
     {
+        if (runeInteractable != null) 
+            runeInteractable.SetColor(Color.black);
         controllerRigidBody = null;
         interactableRigidbody = null;
         IsActive = false;

@@ -22,13 +22,14 @@ public class RuneController : MonoBehaviour
 
    private void CreateRunes()
    {
+      var player = GetComponent<Player>();
       for (int index = 0; index < profiles.Count; index++)
       {
          RuneProfile profile = profiles[index];
          switch (profile.RuneType)
          {
             case RuneType.Magnesis:
-               runes.Add(new Magnesis(profile, interactableLayer.value));
+               runes.Add(new Magnesis(profile, interactableLayer.value, player));
                break;
             default:
                throw new ArgumentOutOfRangeException();
@@ -42,9 +43,9 @@ public class RuneController : MonoBehaviour
    {
       Rune rune = runes[index];
       
-      if (rune == currentRune && currentRune.IsActive) return;
+      if (currentRune != null && rune == currentRune && currentRune.IsActive) return;
       
-      if( currentRune.IsActive) DeactivateRune();
+      if(currentRune != null && currentRune.IsActive) DeactivateRune();
 
       currentRune = rune;
       currentRune.ActivateRune();
@@ -54,7 +55,7 @@ public class RuneController : MonoBehaviour
 
    public void DeactivateRune()
    {
-      if (!currentRune.IsActive) return;
+      if (currentRune == null) return;
       
       currentRune.DeactivateRune();
       OnRuneDeactivated.Invoke(currentRune);

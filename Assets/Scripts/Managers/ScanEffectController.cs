@@ -4,6 +4,7 @@ public class ScanEffectController : MonoBehaviour
 {
     [SerializeField] private RuneEvent OnRuneSelected;
     [SerializeField] private RuneEvent OnRuneConfirmed;
+    [SerializeField] private RuneEvent OnRuneDeactivated;
     [SerializeField] private Material scanMaterial;
     private static readonly int EmissionColor = Shader.PropertyToID("_EmissionColor");
     private static readonly int Activate = Shader.PropertyToID("_Activate");
@@ -12,6 +13,12 @@ public class ScanEffectController : MonoBehaviour
     {
         OnRuneSelected.AddListener(HandleRuneSelected);
         OnRuneConfirmed.AddListener(HandleRuneConfirmed);
+        OnRuneDeactivated.AddListener(HandleRuneDeactivated);
+    }
+
+    private void HandleRuneDeactivated(Rune rune)
+    {
+        scanMaterial.SetFloat(Activate,0.0f);
     }
 
     private void HandleRuneSelected(Rune rune)
