@@ -6,30 +6,15 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] private GameObject leftHand;
-    [SerializeField] private GameObject righttHand;
+    [SerializeField] private GameObject rightHand;
 
     public GameObject LeftHand => leftHand;
-    public GameObject RightHand => leftHand;
+    public GameObject RightHand => rightHand;
 
     private RuneController runeController;
 
     private void Awake()
     {
         runeController = GetComponent<RuneController>();
-    }
-
-
-    private void Update()
-    {
-        if (OVRInput.GetDown(OVRInput.Button.SecondaryHandTrigger))
-        {
-            Debug.Log("Select rune");
-            runeController.SelectRune(0);
-        }
-        if (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger))
-        {
-            Debug.Log("Unselect rune");
-            runeController.DeactivateRune();
-        }
     }
 }

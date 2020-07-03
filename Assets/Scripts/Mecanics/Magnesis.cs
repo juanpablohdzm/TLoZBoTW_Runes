@@ -1,14 +1,13 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class Magnesis : Rune
 {
     private readonly int layerMask;
-    private RaycastHit[] hits = new RaycastHit[100];
-    
+
     private Player player;
     private IRuneInteractable runeInteractable;
     private Rigidbody interactableRigidbody;
-    private Rigidbody controllerRigidBody;
     public Magnesis(RuneProfile profile, int layerMask, Player player)
     {
         this.player = player;
@@ -17,34 +16,26 @@ public class Magnesis : Rune
     }
     public override void ActivateRune()
     {
-        controllerRigidBody = player.RightHand.GetComponent<Rigidbody>();
     }
 
     public override bool ConfirmRune()
     {
         Transform rightHandTransform = player.RightHand.transform;
-        int numHit = Physics.RaycastNonAlloc(rightHandTransform.position, rightHandTransform.forward, hits, 30.0f, layerMask);
-        
-        RaycastHit nearest = new RaycastHit();
-        double nearestDistance = double.MaxValue;
-        for (int i = 0; i < numHit; i++)
+
+        RaycastHit hit;
+        if(Physics.Raycast(rightHandTransform.position,rightHandTransform.forward,out hit,100.0f,layerMask))
         {
-            float distance = Vector3.Distance(rightHandTransform.position, hits[i].point);
-            if (distance < nearestDistance)
-            {
-                nearest = hits[i];
-                nearestDistance = distance;
-            }
-        }
-        if (nearest.transform != null)
-        {
-            var hit = nearest.collider.GetComponent<IRuneInteractable>();
-            if (hit != null)
+            var interactable = hit.collider.GetComponent<IRuneInteractable>();
+            if (interactable != null)
             {
                 if (PlayerInput.Instance.Confirm)
                 {
-                    runeInteractable = hit;
-                    interactableRigidbody = hit.GetComponent<Rigidbody>();
+                    runeInteractable = interactable;
+                    interactableRigidbody = interactable.GetComponent<Rigidbody>();
+                    
+                    interactableRigidbody.useGravity = false;
+                    interactableRigidbody.constraints = RigidbodyConstraints.FreezeRotation;
+                    
                     IsActive = true;
                     return true;
                 }
@@ -61,19 +52,26 @@ public class Magnesis : Rune
         
         runeInteractable.SetColor(Color.yellow);
         
-        interactableRigidbody.isKinematic = true;
         Vector2 throttle = PlayerInput.Instance.RightThumbStick;
-        float controllerSpeed = Vector3.Dot(controllerRigidBody.velocity.normalized, Vector3.up);
+        Vector3 controllerVelocity = PlayerInput.Instance.RightControllerVelocity;
+        float controllerSpeed = Vector3.Dot(controllerVelocity.normalized, Vector3.up);
+        float magnitude = Mathf.Clamp(controllerVelocity.magnitude, 0.0f, 1.0f);
+        
         interactableRigidbody.velocity = interactableRigidbody.transform.forward * throttle.y + 
                                          interactableRigidbody.transform.right * throttle.x +
-                                         interactableRigidbody.transform.up * controllerSpeed;
+                                         interactableRigidbody.transform.up * (controllerSpeed * magnitude);
     }
 
     public override void DeactivateRune()
     {
         if (runeInteractable != null) 
             runeInteractable.SetColor(Color.black);
-        controllerRigidBody = null;
+
+        if (interactableRigidbody != null)
+        {
+            interactableRigidbody.useGravity = true;
+            interactableRigidbody.constraints = RigidbodyConstraints.None;
+        }
         interactableRigidbody = null;
         IsActive = false;
     }

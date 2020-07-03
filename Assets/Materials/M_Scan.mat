@@ -34,7 +34,7 @@ Material:
     - Vector1_1E193448: 2.73
     - Vector1_52B77477: 6
     - Vector1_B0CB50CB: 1.58
-    - _Activate: 1
+    - _Activate: 0
     - _Rotation: -0
     m_Colors:
     - Color_6833A58C: {r: 0, g: 0.5850754, b: 1, a: 0}

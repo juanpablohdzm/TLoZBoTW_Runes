@@ -7,4 +7,9 @@ public interface IPlayerInput
    Vector2 LeftThumbStick { get; }
    Vector2 RightThumbStick { get; }
    bool Confirm { get;}
+   Vector3 RightControllerVelocity { get; }
+   Vector3 LeftControllerVelocity { get; }
+   
+   bool ToggleRuneActivation { get; }
+   
 }
