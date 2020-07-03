@@ -8,11 +8,14 @@ public class Magnesis : Rune
     private Player player;
     private IRuneInteractable runeInteractable;
     private Rigidbody interactableRigidbody;
-    public Magnesis(RuneProfile profile, int layerMask, Player player)
+    private float speed;
+
+    public Magnesis(RuneProfile profile, Player player,int layerMask,float speed)
     {
         this.player = player;
         this.layerMask = layerMask;
         this.profile = profile;
+        this.speed = speed;
     }
     public override void ActivateRune()
     {
@@ -35,6 +38,7 @@ public class Magnesis : Rune
                     
                     interactableRigidbody.useGravity = false;
                     interactableRigidbody.constraints = RigidbodyConstraints.FreezeRotation;
+                    interactableRigidbody.drag = 0.3f;
                     
                     IsActive = true;
                     return true;
@@ -54,12 +58,13 @@ public class Magnesis : Rune
         
         Vector2 throttle = PlayerInput.Instance.RightThumbStick;
         Vector3 controllerVelocity = PlayerInput.Instance.RightControllerVelocity;
-        float controllerSpeed = Vector3.Dot(controllerVelocity.normalized, Vector3.up);
-        float magnitude = Mathf.Clamp(controllerVelocity.magnitude, 0.0f, 1.0f);
-        
-        interactableRigidbody.velocity = interactableRigidbody.transform.forward * throttle.y + 
-                                         interactableRigidbody.transform.right * throttle.x +
-                                         interactableRigidbody.transform.up * (controllerSpeed * magnitude);
+        float controllerDirection = Vector3.Dot(controllerVelocity.normalized, Vector3.up);
+        float scalar = Mathf.Clamp(controllerVelocity.magnitude, 0.0f, 1.0f);
+
+        var transform = player.transform;
+        interactableRigidbody.velocity = transform.forward * (throttle.y * speed * 0.5f) + 
+                                         transform.right * (throttle.x * speed * 0.5f)+
+                                         transform.up * (controllerDirection * scalar * speed);
     }
 
     public override void DeactivateRune()

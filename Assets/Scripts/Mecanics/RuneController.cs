@@ -34,7 +34,7 @@ public class RuneController : MonoBehaviour
          switch (profile.RuneType)
          {
             case RuneType.Magnesis:
-               runes.Add(new Magnesis(profile, interactableLayer.value, player));
+               runes.Add(new Magnesis(profile,player, interactableLayer.value, 5.0f));
                break;
             default:
                throw new ArgumentOutOfRangeException();
@@ -69,7 +69,6 @@ public class RuneController : MonoBehaviour
       
       currentRune.DeactivateRune();
       OnRuneDeactivated.Invoke(currentRune);
-      currentRune = null;
    }
 
    private void ToggleRuneActivation()
