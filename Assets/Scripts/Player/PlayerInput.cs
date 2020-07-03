@@ -6,8 +6,9 @@ public class PlayerInput : MonoBehaviour, IPlayerInput
 {
     public Vector2 LeftThumbStick => OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick);
     public Vector2 RightThumbStick => OVRInput.Get(OVRInput.Axis2D.SecondaryThumbstick);
+    public bool Confirm => OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger);
     
-    public static PlayerInput Instance { get; private set; }
+    public static IPlayerInput Instance { get; private set; }
 
     private void Awake()
     {

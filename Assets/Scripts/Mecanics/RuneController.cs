@@ -6,9 +6,11 @@ public class RuneController : MonoBehaviour
 {
 
    [SerializeField] private List<RuneProfile> profiles  = new List<RuneProfile>();
-   [SerializeField] private EventRune OnCreatedRune;
-   [SerializeField] private EventRune OnRunActivated;
-   [SerializeField] private EventRune OnRunDeactivated;
+   [SerializeField] private LayerMask interactableLayer;
+   [SerializeField] private RuneEvent OnCreatedRune;
+   [SerializeField] private RuneEvent OnRuneSelected;
+   [SerializeField] private RuneEvent OnRuneConfirmed;
+   [SerializeField] private RuneEvent OnRuneDeactivated;
    
    private List<Rune> runes = new List<Rune>();
    private Rune currentRune;
@@ -26,7 +28,7 @@ public class RuneController : MonoBehaviour
          switch (profile.RuneType)
          {
             case RuneType.Magnesis:
-               runes.Add(new Magnesis(profile));
+               runes.Add(new Magnesis(profile, interactableLayer.value));
                break;
             default:
                throw new ArgumentOutOfRangeException();
@@ -36,7 +38,7 @@ public class RuneController : MonoBehaviour
       }
    }
 
-   public void ActivateRune(int index)
+   public void SelectRune(int index)
    {
       Rune rune = runes[index];
       
@@ -47,7 +49,7 @@ public class RuneController : MonoBehaviour
       currentRune = rune;
       currentRune.ActivateRune();
 
-      OnRunActivated.Invoke(currentRune);
+      OnRuneSelected.Invoke(currentRune);
    }
 
    public void DeactivateRune()
@@ -55,8 +57,23 @@ public class RuneController : MonoBehaviour
       if (!currentRune.IsActive) return;
       
       currentRune.DeactivateRune();
-      OnRunDeactivated.Invoke(currentRune);
+      OnRuneDeactivated.Invoke(currentRune);
       currentRune = null;
    }
 
+   private void FixedUpdate()
+   {
+      if (currentRune == null) return;
+      if (!currentRune.IsActive)
+      {
+         if (currentRune.ConfirmRune())
+         {
+            OnRuneConfirmed.Invoke(currentRune);
+         }
+      }
+      else
+      {
+         currentRune.UseRune();
+      }
+   }
 }
