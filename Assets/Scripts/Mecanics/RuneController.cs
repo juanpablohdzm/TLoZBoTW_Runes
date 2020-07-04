@@ -72,15 +72,6 @@ public class RuneController : MonoBehaviour
       OnRuneDeactivated.Invoke(currentRune);
    }
 
-   private void ToggleRuneActivation()
-   {
-      if(runeIsActive)
-         DeactivateRune();
-      else
-         ActivateRune();
-
-      runeIsActive = !runeIsActive;
-   }
 
    private void FixedUpdate()
    {
@@ -99,5 +90,14 @@ public class RuneController : MonoBehaviour
       {
          currentRune.UseRune();
       }
+   }
+   private void ToggleRuneActivation()
+   {
+      if(runeIsActive)
+         DeactivateRune();
+      else
+         ActivateRune();
+
+      runeIsActive = !runeIsActive;
    }
 }

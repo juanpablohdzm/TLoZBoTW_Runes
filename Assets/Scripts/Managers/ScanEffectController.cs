@@ -37,5 +37,6 @@ public class ScanEffectController : MonoBehaviour
     {
         OnRuneSelected.RemoveListener(HandleRuneSelected);
         OnRuneConfirmed.RemoveListener(HandleRuneConfirmed);
+        OnRuneDeactivated.RemoveListener(HandleRuneDeactivated);
     }
 }
