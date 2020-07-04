@@ -1,21 +1,24 @@
-﻿using System;
+﻿using DG.Tweening;
 using UnityEngine;
 
 public class Magnesis : Rune
 {
     private readonly int layerMask;
+    private readonly GameObject laserPrefab;
 
     private Player player;
     private IRuneInteractable runeInteractable;
     private Rigidbody interactableRigidbody;
     private float speed;
+    private LineRenderer laser;
 
-    public Magnesis(RuneProfile profile, Player player,int layerMask,float speed)
+    public Magnesis(RuneProfile profile, Player player,int layerMask,float speed, GameObject laserPrefab)
     {
         this.player = player;
         this.layerMask = layerMask;
         this.profile = profile;
         this.speed = speed;
+        this.laserPrefab = laserPrefab;
     }
     public override void ActivateRune()
     {
@@ -33,20 +36,34 @@ public class Magnesis : Rune
             {
                 if (PlayerInput.Instance.Confirm)
                 {
-                    runeInteractable = interactable;
-                    interactableRigidbody = interactable.GetComponent<Rigidbody>();
-                    
-                    interactableRigidbody.useGravity = false;
-                    interactableRigidbody.constraints = RigidbodyConstraints.FreezeRotation;
-                    interactableRigidbody.drag = 0.3f;
-                    
-                    IsActive = true;
+                    laser = Object.Instantiate(laserPrefab, rightHandTransform).GetComponent<LineRenderer>();
+                    Sequence s = DOTween.Sequence();
+                    s.Append(DOTween.To(() => laser.GetPosition(1), x => laser.SetPosition(1, x),
+                        interactable.transform.position, 1));
+                    s.OnComplete(()=>
+                    {
+                        PrepareInteractable(interactable);
+                        Object.Destroy(laser.gameObject);
+                        laser = null;
+                    });
                     return true;
                 }
             }
         }
 
         return false;
+    }
+
+    private void PrepareInteractable(IRuneInteractable interactable)
+    {
+        runeInteractable = interactable;
+        interactableRigidbody = interactable.GetComponent<Rigidbody>();
+                    
+        interactableRigidbody.useGravity = false;
+        interactableRigidbody.constraints = RigidbodyConstraints.FreezeRotation;
+        interactableRigidbody.drag = 0.3f;
+                    
+        IsActive = true;
     }
 
     public override void UseRune()

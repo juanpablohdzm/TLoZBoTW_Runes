@@ -8,6 +8,7 @@ public class RuneController : MonoBehaviour
    [SerializeField] private List<RuneProfile> profiles  = new List<RuneProfile>();
    
    [SerializeField] private LayerMask interactableLayer;
+   [SerializeField] private GameObject laserPrefab;
    
    [SerializeField] private RuneEvent OnCreatedRune;
    [SerializeField] private RuneEvent OnRuneSelected;
@@ -34,7 +35,7 @@ public class RuneController : MonoBehaviour
          switch (profile.RuneType)
          {
             case RuneType.Magnesis:
-               runes.Add(new Magnesis(profile,player, interactableLayer.value, 5.0f));
+               runes.Add(new Magnesis(profile,player, interactableLayer.value, 5.0f,laserPrefab));
                break;
             default:
                throw new ArgumentOutOfRangeException();
