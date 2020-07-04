@@ -23,11 +23,6 @@ public class UIRuneMenu : MonoBehaviour
         runeController = FindObjectOfType<RuneController>();
     }
 
-    private void HandleOnRuneSlotSelected(int index)
-    {
-        runeController.SelectRune(index);
-    }
-
     private void FixedUpdate()
     {
         Vector2 stick = PlayerInput.Instance.LeftThumbStick;
@@ -47,6 +42,11 @@ public class UIRuneMenu : MonoBehaviour
         if (!index.HasValue) return;
         
         runeSlotHolder.SetSlot(rune, index.Value);
+    }
+    
+    private void HandleOnRuneSlotSelected(int index)
+    {
+        runeController.SelectRune(index);
     }
 
     private void OnDestroy()
