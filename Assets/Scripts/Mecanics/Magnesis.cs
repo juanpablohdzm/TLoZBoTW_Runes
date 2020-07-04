@@ -10,7 +10,7 @@ public class Magnesis : Rune
     private IRuneInteractable runeInteractable;
     private Rigidbody interactableRigidbody;
     private float speed;
-    private LineRenderer laser;
+    private Laser laser;
 
     public Magnesis(RuneProfile profile, Player player,int layerMask,float speed, GameObject laserPrefab)
     {
@@ -36,15 +36,13 @@ public class Magnesis : Rune
             {
                 if (PlayerInput.Instance.Confirm)
                 {
-                    laser = Object.Instantiate(laserPrefab, rightHandTransform).GetComponent<LineRenderer>();
+                    laser = Object.Instantiate(laserPrefab, rightHandTransform).GetComponent<Laser>();
                     Sequence s = DOTween.Sequence();
                     s.Append(DOTween.To(() => laser.GetPosition(1), x => laser.SetPosition(1, x),
-                        interactable.transform.position, 1));
+                        laser.transform.InverseTransformPoint(interactable.transform.position), 1));
                     s.OnComplete(()=>
                     {
                         PrepareInteractable(interactable);
-                        Object.Destroy(laser.gameObject);
-                        laser = null;
                     });
                     return true;
                 }
@@ -73,8 +71,13 @@ public class Magnesis : Rune
         
         runeInteractable.SetColor(Color.yellow);
         
+        
         Vector2 throttle = PlayerInput.Instance.RightThumbStick;
         Vector3 controllerVelocity = PlayerInput.Instance.RightControllerVelocity;
+        
+        laser.SetPosition(laser.PositionCount-1,laser.transform.InverseTransformPoint(interactableRigidbody.transform.position));
+        laser.Direction = -throttle.x;
+        
         float controllerDirection = Vector3.Dot(controllerVelocity.normalized, Vector3.up);
         float scalar = Mathf.Clamp(controllerVelocity.magnitude, 0.0f, 1.0f);
 
@@ -86,6 +89,12 @@ public class Magnesis : Rune
 
     public override void DeactivateRune()
     {
+        if (laser != null)
+        {
+            Object.Destroy(laser.gameObject);
+            laser = null;
+        }
+
         if (runeInteractable != null) 
             runeInteractable.SetColor(Color.black);
 

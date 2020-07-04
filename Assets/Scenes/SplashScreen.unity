@@ -405,7 +405,7 @@ MonoBehaviour:
   sceneToLoad:
     sceneAsset: {fileID: 102900000, guid: 0b4ec58c354bb7c49b84e762df9ee952, type: 3}
     scenePath: Assets/Scenes/Main.unity
-  minTime: 3
+  minTime: 6
 --- !u!4 &1599300808
 Transform:
   m_ObjectHideFlags: 0
