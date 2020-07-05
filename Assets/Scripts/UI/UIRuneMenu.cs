@@ -14,8 +14,10 @@ public class UIRuneMenu : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        runeSlotHolder.OnRuneSlotSelected += HandleOnRuneSlotSelected;
-        OnCreatedRune.AddListener(HandleOnCreatedRune);
+        if(runeSlotHolder != null)
+            runeSlotHolder.OnRuneSlotSelected += HandleOnRuneSlotSelected;
+        if(OnCreatedRune != null)
+            OnCreatedRune.AddListener(HandleOnCreatedRune);
     }
 
     private void Start()
@@ -51,7 +53,9 @@ public class UIRuneMenu : MonoBehaviour
 
     private void OnDestroy()
     {
-        runeSlotHolder.OnRuneSlotSelected -= HandleOnRuneSlotSelected;
-        OnCreatedRune.RemoveListener(HandleOnCreatedRune);
+        if(runeSlotHolder != null)
+            runeSlotHolder.OnRuneSlotSelected -= HandleOnRuneSlotSelected;
+        if(OnCreatedRune != null)
+            OnCreatedRune.RemoveListener(HandleOnCreatedRune);
     }
 }

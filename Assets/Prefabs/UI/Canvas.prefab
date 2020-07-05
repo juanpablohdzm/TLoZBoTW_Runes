@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 7242123655700416456}
   - component: {fileID: 7242123655700416457}
   - component: {fileID: 7242123655700416458}
-  - component: {fileID: 184053307040728835}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -101,17 +100,3 @@ MonoBehaviour:
     m_Bits: 4294967295
   pointer: {fileID: 0}
   sortOrder: 0
---- !u!114 &184053307040728835
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7242123655700416459}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15da037651feaa84dac762eb1aa2a475, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  runeSlotHolder: {fileID: 0}
-  OnCreatedRune: {fileID: 11400000, guid: f84ce757277055d4e8af212ac078846d, type: 2}

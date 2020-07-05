@@ -7,7 +7,7 @@ using Utilities;
 
 public class SplashScreen : MonoBehaviour
 {
-    [SerializeField] private SceneReference sceneToLoad;
+    [SerializeField] private string sceneToLoad;
     [SerializeField] private float minTime = 3.0f;
 
     private void Start()
