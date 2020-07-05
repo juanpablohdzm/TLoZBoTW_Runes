@@ -8,11 +8,14 @@ public class UIRuneSlotHolder : MonoBehaviour
     public event Action<int> OnRuneSlotSelected;
     
     [SerializeField] private UIRuneSlot[] slots;
+    [SerializeField] private UIRuneSelectionSlot selectionSlot;
     [SerializeField] private AnimationCurve easeCurve;
     [SerializeField] private AudioClip onEnableClip;
+    
    
     private AudioSource audioSource;
     private int previousIndex = -1;
+    private bool isActive = false;
 
     private void Awake()
     {
@@ -21,24 +24,46 @@ public class UIRuneSlotHolder : MonoBehaviour
 
     private void OnEnable()
     {
+        UnHighlightAllSlots();
+        PlayEnableAnimation();
+    }
+
+    private void UnHighlightAllSlots()
+    {
+        foreach (var slot in slots)
+        {
+            slot.UnHighlight();
+        }
+    }
+
+    private void PlayEnableAnimation()
+    {
         Sequence s = DOTween.Sequence();
-        transform.localScale = new Vector3(0.7f, 1.0f, 0.7f);
+        transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
         s.AppendCallback(() => { audioSource.PlayOneShot(onEnableClip); });
         s.Join(transform.DOScale(new Vector3(1.0f, 1.0f, 1.0f), 1.0f).SetEase(easeCurve));
+        s.OnComplete(() => isActive = true);
     }
 
     private void OnDisable()
     {
         previousIndex = -1;
+        isActive = false;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
+        if (!isActive) return;
+        
         Vector2 direction = PlayerInput.Instance.LeftThumbStick;
         var index = GetCorrespondingIndex(direction);
-        if (index != previousIndex && previousIndex != -1)
+        if (index != previousIndex)
         {
-            slots[previousIndex].UnHighlight();
+            if (previousIndex != -1)
+            {
+                slots[previousIndex].UnHighlight();
+            }
+
             slots[index].Highlight();
             previousIndex = index;
         }
@@ -48,6 +73,7 @@ public class UIRuneSlotHolder : MonoBehaviour
             if (previousIndex != -1)
             {
                 slots[previousIndex].UnHighlight();
+                selectionSlot.Icon = slots[previousIndex].Image.sprite;
                 OnRuneSlotSelected?.Invoke(previousIndex);
             }
         }
@@ -56,39 +82,32 @@ public class UIRuneSlotHolder : MonoBehaviour
 
     private int GetCorrespondingIndex(Vector3 dir)
     {
+        
         float angle = 0;
-        switch (angle)
-        {
-            case 0 when dir.x > 0 && dir.y >=0:
-                angle = Mathf.Atan(dir.y / dir.x)* Mathf.Rad2Deg;
-                break;
-            case 1 when dir.x == Mathf.Epsilon && dir.y >0:
-                angle = 90.0f;
-                break;
-            case 2 when dir.x < 0:
-                angle = Mathf.Atan(dir.y / dir.x) * Mathf.Rad2Deg + 180.0f;
-                break;
-            case 3 when dir.x == Mathf.Epsilon && dir.y< 0:
-                angle = 270;
-                break;
-            case 4 when dir.x > 0 && dir.y< 0:
-                angle = Mathf.Atan(dir.y / dir.x) * Mathf.Rad2Deg + 360.0f;
-                break;
-        }
+        if (dir.x > 0 && dir.y >= 0)
+            angle = Mathf.Atan(dir.y / dir.x) * Mathf.Rad2Deg;
+        else 
+        if (dir.x == Mathf.Epsilon && dir.y > 0)
+            angle = 90.0f;
+        else 
+        if (dir.x < 0)
+            angle = Mathf.Atan(dir.y / dir.x) * Mathf.Rad2Deg + 180.0f;
+        else
+        if (dir.x == Mathf.Epsilon && dir.y < 0)
+            angle = 270;
+        else 
+        if (dir.x > 0 && dir.y < 0) 
+            angle = Mathf.Atan(dir.y / dir.x) * Mathf.Rad2Deg + 360.0f;
 
-        switch (angle)
-        {
-            case 0 when angle >= 180.0f && angle < 270.0f:
-                return 0;
-            case 1 when angle >= 90.0f && angle < 180.0f:
+
+        if (angle >= 180.0f && angle < 270.0f)
+            return 0;
+        if (angle >= 90.0f && angle < 180.0f)
                 return 1;
-            case 2 when angle >= 0.0f && angle < 90.0f:
-                return 2;
-            case 3 when angle >= 270.0f && angle < 360.0f:
-                return 3;
-            default:
-                throw new NotSupportedException($"Not supported angle {angle}");
-        }
+        if (angle >= 0.0f && angle < 90.0f)
+            return 2;
+        
+        return 3;
     }
 
     public int? FindOpenSlot()
@@ -106,4 +125,5 @@ public class UIRuneSlotHolder : MonoBehaviour
     {
         slots[index].SetSlot(rune,index);
     }
+    
 }

@@ -22,8 +22,6 @@ public class RuneController : MonoBehaviour
    private void Start()
    {
       CreateRunes();
-
-      SelectRune(0);
    }
 
    private void CreateRunes()
@@ -47,6 +45,12 @@ public class RuneController : MonoBehaviour
 
    public bool SelectRune(int index)
    {
+      if (index < 0 || index >= runes.Count)
+      {
+         currentRune = null;
+         return false;
+      }
+
       Rune rune = runes[index];
       
       if (rune == currentRune) return false;
@@ -59,7 +63,8 @@ public class RuneController : MonoBehaviour
    private void ActivateRune()
    {
       if (currentRune == null) return;
-      
+
+      runeIsActive = true;
       currentRune.ActivateRune();
       OnRuneSelected.Invoke(currentRune);
    }
@@ -67,7 +72,8 @@ public class RuneController : MonoBehaviour
    private void DeactivateRune()
    {
       if (currentRune == null) return;
-      
+
+      runeIsActive = false;
       currentRune.DeactivateRune();
       OnRuneDeactivated.Invoke(currentRune);
    }
@@ -97,7 +103,5 @@ public class RuneController : MonoBehaviour
          DeactivateRune();
       else
          ActivateRune();
-
-      runeIsActive = !runeIsActive;
    }
 }
