@@ -3,7 +3,8 @@
    protected RuneProfile profile;
 
    public RuneProfile Profile => profile;
-   public bool IsActive { get; protected set; }
+   public bool IsActive { get; protected set; } = false;
+   public bool IsRunning { get; protected set; } = false;
 
    public abstract void ActivateRune();
 

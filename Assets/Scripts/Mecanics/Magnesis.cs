@@ -22,6 +22,7 @@ public class Magnesis : Rune
     }
     public override void ActivateRune()
     {
+        IsActive = true;
     }
 
     public override bool ConfirmRune()
@@ -60,8 +61,8 @@ public class Magnesis : Rune
         interactableRigidbody.useGravity = false;
         interactableRigidbody.constraints = RigidbodyConstraints.FreezeRotation;
         interactableRigidbody.drag = 0.3f;
-                    
-        IsActive = true;
+
+        IsRunning = true;
     }
 
     public override void UseRune()
@@ -105,5 +106,6 @@ public class Magnesis : Rune
         }
         interactableRigidbody = null;
         IsActive = false;
+        IsRunning = false;
     }
 }

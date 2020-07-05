@@ -85,16 +85,19 @@ public class RuneController : MonoBehaviour
          ToggleRuneActivation();
       
       if (currentRune == null) return;
-      if (!currentRune.IsActive)
+      if (currentRune.IsActive)
       {
-         if (currentRune.ConfirmRune())
+         if (!currentRune.IsRunning)
          {
-            OnRuneConfirmed.Invoke(currentRune);
+            if (currentRune.ConfirmRune())
+            {
+               OnRuneConfirmed.Invoke(currentRune);
+            }
          }
-      }
-      else
-      {
-         currentRune.UseRune();
+         else
+         {
+            currentRune.UseRune();
+         }
       }
    }
    private void ToggleRuneActivation()
