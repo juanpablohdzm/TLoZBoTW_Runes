@@ -9483,6 +9483,43 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &1488889070 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5214349545659026838, guid: 8209a49ce967ef44db57a3f5119a046d,
+    type: 3}
+  m_PrefabInstance: {fileID: 5214349544210800709}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1488889071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1488889070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!1 &1495373366
 GameObject:
   m_ObjectHideFlags: 0
@@ -13123,6 +13160,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5214349545648273526, guid: 8209a49ce967ef44db57a3f5119a046d,
+        type: 3}
+      propertyPath: _trackingOriginType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5214349545659037534, guid: 8209a49ce967ef44db57a3f5119a046d,
         type: 3}
       propertyPath: m_IsActive
@@ -13140,6 +13182,94 @@ PrefabInstance:
       objectReference: {fileID: 1945152416}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8209a49ce967ef44db57a3f5119a046d, type: 3}
+--- !u!1 &5214349544210800710 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5214349545659026832, guid: 8209a49ce967ef44db57a3f5119a046d,
+    type: 3}
+  m_PrefabInstance: {fileID: 5214349544210800709}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5214349544210800711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5214349544210800710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
+--- !u!1 &5214349544210800712 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5214349545659026834, guid: 8209a49ce967ef44db57a3f5119a046d,
+    type: 3}
+  m_PrefabInstance: {fileID: 5214349544210800709}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5214349544210800713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5214349544210800712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8e7ff1cdf4c4e74db00c3684108bc9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EventMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  sortOrder: 0
+--- !u!114 &5214349544210800714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5214349544210800712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df8e1d778abf442e4bec449c360e9e1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeTime: 2
+  fadeColor: {r: 0.01, g: 0.01, b: 0.01, a: 1}
+  fadeOnStart: 1
+  renderQueue: 5000
+--- !u!114 &5214349544210800715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5214349544210800712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09bb0a17b6a704298b65be4fb08ef480, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resetButton: 512
 --- !u!1001 &5513152739393787787
 PrefabInstance:
   m_ObjectHideFlags: 0
