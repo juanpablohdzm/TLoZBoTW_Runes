@@ -18,9 +18,12 @@ public class IRuneInteractable : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     private void Awake()
     {
-        OnRuneSelected.AddListener(HandleRuneSelected);
-        OnRuneConfirmed.AddListener(HandleRuneConfirmed);
-        OnRuneDeactivated.AddListener(HandleRuneDeactivated);
+        if (OnRuneSelected != null) 
+            OnRuneSelected.AddListener(HandleRuneSelected);
+        if (OnRuneConfirmed != null) 
+            OnRuneConfirmed.AddListener(HandleRuneConfirmed);
+        if (OnRuneDeactivated != null) 
+            OnRuneDeactivated.AddListener(HandleRuneDeactivated);
         mat = GetComponent<Renderer>().material;
     }
 
@@ -69,8 +72,11 @@ public class IRuneInteractable : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     private void OnDestroy()
     {
-        OnRuneSelected.RemoveListener(HandleRuneSelected);
-        OnRuneConfirmed.RemoveListener(HandleRuneConfirmed);
-        OnRuneDeactivated.RemoveListener(HandleRuneDeactivated);
+        if (OnRuneSelected != null) 
+            OnRuneSelected.RemoveListener(HandleRuneSelected);
+        if (OnRuneConfirmed != null) 
+            OnRuneConfirmed.RemoveListener(HandleRuneConfirmed);
+        if (OnRuneDeactivated != null) 
+            OnRuneDeactivated.RemoveListener(HandleRuneDeactivated);
     }
 }

@@ -11,9 +11,12 @@ public class ScanEffectController : MonoBehaviour
 
     private void Awake()
     {
-        OnRuneSelected.AddListener(HandleRuneSelected);
-        OnRuneConfirmed.AddListener(HandleRuneConfirmed);
-        OnRuneDeactivated.AddListener(HandleRuneDeactivated);
+        if (OnRuneSelected != null) 
+            OnRuneSelected.AddListener(HandleRuneSelected);
+        if (OnRuneConfirmed != null) 
+            OnRuneConfirmed.AddListener(HandleRuneConfirmed);
+        if (OnRuneDeactivated != null) 
+            OnRuneDeactivated.AddListener(HandleRuneDeactivated);
     }
 
     private void HandleRuneDeactivated(Rune rune)
@@ -35,8 +38,11 @@ public class ScanEffectController : MonoBehaviour
 
     private void OnDestroy()
     {
-        OnRuneSelected.RemoveListener(HandleRuneSelected);
-        OnRuneConfirmed.RemoveListener(HandleRuneConfirmed);
-        OnRuneDeactivated.RemoveListener(HandleRuneDeactivated);
+        if (OnRuneSelected != null) 
+            OnRuneSelected.RemoveListener(HandleRuneSelected);
+        if (OnRuneConfirmed != null) 
+            OnRuneConfirmed.RemoveListener(HandleRuneConfirmed);
+        if (OnRuneDeactivated != null) 
+            OnRuneDeactivated.RemoveListener(HandleRuneDeactivated);
     }
 }
