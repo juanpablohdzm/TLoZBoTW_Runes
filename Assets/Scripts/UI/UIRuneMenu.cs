@@ -48,7 +48,7 @@ public class UIRuneMenu : MonoBehaviour
     
     private void HandleOnRuneSlotSelected(int index)
     {
-        runeController.SelectRune(index);
+        if (runeController != null) runeController.SelectRune(index);
     }
 
     private void OnDestroy()

@@ -7,6 +7,7 @@ public class RuneProfile : ScriptableObject
     public RuneType RuneType;
     public Color Color;
     public Sprite Icon;
+    public bool ShouldNotify;
 }
 
 

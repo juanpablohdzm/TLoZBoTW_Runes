@@ -10,9 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e1d8bed197ff4cb1a1e3931f3fda8070, type: 3}
-  m_Name: Magnesis
+  m_Name: RemoteBombSphere
   m_EditorClassIdentifier: 
-  RuneType: 0
-  Color: {r: 1, g: 0, b: 0, a: 1}
-  Icon: {fileID: 21300000, guid: c2a0a6a8d27a6fe438c1a1b82555026f, type: 3}
-  ShouldNotify: 1
+  RuneType: 1
+  Color: {r: 0.023584902, g: 0.65730965, b: 1, a: 0}
+  Icon: {fileID: 21300000, guid: a9f27a2e62b6b644684187bfa64a19b2, type: 3}

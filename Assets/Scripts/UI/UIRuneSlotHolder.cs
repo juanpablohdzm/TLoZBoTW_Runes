@@ -27,6 +27,11 @@ public class UIRuneSlotHolder : MonoBehaviour
         UnHighlightAllSlots();
         PlayEnableAnimation();
     }
+    private void OnDisable()
+    {
+        previousIndex = -1;
+        isActive = false;
+    }
 
     private void UnHighlightAllSlots()
     {
@@ -45,11 +50,6 @@ public class UIRuneSlotHolder : MonoBehaviour
         s.OnComplete(() => isActive = true);
     }
 
-    private void OnDisable()
-    {
-        previousIndex = -1;
-        isActive = false;
-    }
 
     private void Update()
     {
@@ -100,14 +100,15 @@ public class UIRuneSlotHolder : MonoBehaviour
             angle = Mathf.Atan(dir.y / dir.x) * Mathf.Rad2Deg + 360.0f;
 
 
-        if (angle >= 180.0f && angle < 270.0f)
+        if (angle >= 198.0f && angle < 270.0f)
             return 0;
-        if (angle >= 90.0f && angle < 180.0f)
+        if (angle >= 126.0f && angle < 198.0f)
                 return 1;
-        if (angle >= 0.0f && angle < 90.0f)
+        if (angle >= 54.0f && angle < 126.0f)
             return 2;
-        
-        return 3;
+        if(angle>=342 && angle < 54)
+            return 3;
+        return 4;
     }
 
     public int? FindOpenSlot()
@@ -117,7 +118,6 @@ public class UIRuneSlotHolder : MonoBehaviour
             if (slots[i].IsEmpty)
                 return i;
         }
-
         return null;
     }
 

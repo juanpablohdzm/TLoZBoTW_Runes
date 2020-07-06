@@ -5,10 +5,13 @@ using UnityEngine;
 public class RuneController : MonoBehaviour
 {
 
-   [SerializeField] private List<RuneProfile> profiles  = new List<RuneProfile>();
+   [SerializeField] private RuneProfile[] profiles;
    
    [SerializeField] private LayerMask interactableLayer;
+   
    [SerializeField] private GameObject laserPrefab;
+   [SerializeField] private GameObject prefabSphereBomb;
+   [SerializeField] private GameObject prefabBoxBomb;
    
    [SerializeField] private RuneEvent OnCreatedRune;
    [SerializeField] private RuneEvent OnRuneSelected;
@@ -27,16 +30,24 @@ public class RuneController : MonoBehaviour
    private void CreateRunes()
    {
       var player = GetComponent<Player>();
-      for (int index = 0; index < profiles.Count; index++)
+      for (int index = 0; index < profiles.Length; index++)
       {
          RuneProfile profile = profiles[index];
-         switch (profile.RuneType)
+         if (profile.RuneType == RuneType.Magnesis)
          {
-            case RuneType.Magnesis:
-               runes.Add(new Magnesis(profile,player, interactableLayer.value, 5.0f,laserPrefab));
-               break;
-            default:
-               throw new ArgumentOutOfRangeException();
+            runes.Add(new Magnesis(profile, player, interactableLayer.value, 5.0f, laserPrefab));
+         }
+         else if (profile.RuneType == RuneType.RemoteBombSphere)
+         {
+            runes.Add(new BombRune(profile, player, prefabSphereBomb, this));
+         }
+         else if (profile.RuneType == RuneType.RemoteBombBox)
+         {
+            runes.Add(new BombRune(profile, player, prefabBoxBomb, this));
+         }
+         else
+         {
+            throw new ArgumentOutOfRangeException();
          }
 
          OnCreatedRune.Invoke(runes[index]);
@@ -66,16 +77,16 @@ public class RuneController : MonoBehaviour
 
       runeIsActive = true;
       currentRune.ActivateRune();
-      OnRuneSelected.Invoke(currentRune);
+      if(currentRune.Profile.ShouldNotify) OnRuneSelected.Invoke(currentRune);
    }
 
-   private void DeactivateRune()
+   public void DeactivateRune()
    {
       if (currentRune == null) return;
 
       runeIsActive = false;
       currentRune.DeactivateRune();
-      OnRuneDeactivated.Invoke(currentRune);
+      if(currentRune.Profile.ShouldNotify) OnRuneDeactivated.Invoke(currentRune);
    }
 
 
@@ -91,7 +102,7 @@ public class RuneController : MonoBehaviour
          {
             if (currentRune.ConfirmRune())
             {
-               OnRuneConfirmed.Invoke(currentRune);
+               if(currentRune.Profile.ShouldNotify) OnRuneConfirmed.Invoke(currentRune);
             }
          }
          else

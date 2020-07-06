@@ -9,6 +9,7 @@ public interface IPlayerInput
    bool Confirm { get;}
    bool RuneConfirm { get; }
    Vector3 RightControllerVelocity { get; }
+   Vector3 RightControllerAngularVelocity { get; }
    Vector3 LeftControllerVelocity { get; }
    
    bool ToggleRuneActivation { get; }
