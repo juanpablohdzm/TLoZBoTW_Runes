@@ -32,7 +32,7 @@ public class Magnesis : Rune
         RaycastHit hit;
         if(Physics.Raycast(rightHandTransform.position,rightHandTransform.forward,out hit,100.0f,layerMask))
         {
-            var interactable = hit.collider.GetComponent<IRuneInteractable>();
+            IRuneInteractable interactable = hit.collider.GetComponent<IRuneInteractable>();
             if (interactable != null)
             {
                 if (PlayerInput.Instance.Confirm)
@@ -78,14 +78,16 @@ public class Magnesis : Rune
         
         laser.SetPosition(laser.PositionCount-1,laser.transform.InverseTransformPoint(interactableRigidbody.transform.position));
         laser.Direction = -throttle.x;
-        
-        float controllerDirection = Vector3.Dot(controllerVelocity.normalized, Vector3.up);
+
+        Vector3 controllerVelocityNormalized = controllerVelocity.normalized;
+        float controllerUpDirection = Vector3.Dot(controllerVelocityNormalized, Vector3.up);
+        float controllerRightDirection = Vector3.Dot(controllerVelocityNormalized, Vector3.right);
         float scalar = Mathf.Clamp(controllerVelocity.magnitude, 0.0f, 1.0f);
 
-        var transform = player.transform;
+        Transform transform = player.transform;
         interactableRigidbody.velocity = transform.forward * (throttle.y * speed * 0.5f) + 
-                                         transform.right * (throttle.x * speed * 0.5f)+
-                                         transform.up * (controllerDirection * scalar * speed);
+                                         transform.right * (controllerRightDirection * scalar * speed)+
+                                         transform.up * (controllerUpDirection * scalar * speed);
     }
 
     public override void DeactivateRune()
