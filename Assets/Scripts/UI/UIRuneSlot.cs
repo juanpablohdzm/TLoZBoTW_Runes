@@ -19,6 +19,15 @@ public class UIRuneSlot : MonoBehaviour
     private Color startColor;
 
     private Sequence s;
+    
+    
+    #region UnityTestsVariables
+    #if UNITY_EDITOR
+    public bool IsHighlited => backgroundImage.color == highlightColor;
+        
+        
+    #endif
+    #endregion
 
     private void Awake()
     {

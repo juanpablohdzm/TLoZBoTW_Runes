@@ -21,6 +21,7 @@ public class RuneController : MonoBehaviour
    private List<Rune> runes = new List<Rune>();
    private Rune currentRune;
    private bool runeIsActive = false;
+   public int AmountOfRunes => runes.Count;
 
    private void Start()
    {

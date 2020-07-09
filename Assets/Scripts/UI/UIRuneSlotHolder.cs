@@ -15,7 +15,18 @@ public class UIRuneSlotHolder : MonoBehaviour
    
     private AudioSource audioSource;
     private int previousIndex = -1;
-    private bool isActive = false;
+
+    public bool IsActive { get; private set; } = false;
+
+
+    #region UnityTestsVariables
+    #if UNITY_EDITOR
+    public int AmountOfSlots => slots.Length;
+    public int Index => previousIndex;
+    public UIRuneSlot[] Slots => slots;
+    
+    #endif
+    #endregion
 
     private void Awake()
     {
@@ -30,7 +41,7 @@ public class UIRuneSlotHolder : MonoBehaviour
     private void OnDisable()
     {
         previousIndex = -1;
-        isActive = false;
+        IsActive = false;
     }
 
     private void UnHighlightAllSlots()
@@ -47,16 +58,15 @@ public class UIRuneSlotHolder : MonoBehaviour
         transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
         s.AppendCallback(() => { audioSource.PlayOneShot(onEnableClip); });
         s.Join(transform.DOScale(new Vector3(1.0f, 1.0f, 1.0f), 1.0f).SetEase(easeCurve));
-        s.OnComplete(() => isActive = true);
+        s.OnComplete(() => IsActive = true);
     }
 
 
     private void Update()
     {
-        if (!isActive) return;
+        if (!IsActive) return;
         
-        Vector2 direction = PlayerInput.Instance.LeftThumbStick;
-        var index = GetCorrespondingIndex(direction);
+        var index = GetCorrespondingIndex();
         if (index != previousIndex)
         {
             if (previousIndex != -1)
@@ -80,26 +90,10 @@ public class UIRuneSlotHolder : MonoBehaviour
 
     }
 
-    private int GetCorrespondingIndex(Vector3 dir)
+    private int GetCorrespondingIndex()
     {
+        float angle = PlayerInput.Instance.GetJoyStickAngle(ControllerType.Left);
         
-        float angle = 0;
-        if (dir.x > 0 && dir.y >= 0)
-            angle = Mathf.Atan(dir.y / dir.x) * Mathf.Rad2Deg;
-        else 
-        if (dir.x == Mathf.Epsilon && dir.y > 0)
-            angle = 90.0f;
-        else 
-        if (dir.x < 0)
-            angle = Mathf.Atan(dir.y / dir.x) * Mathf.Rad2Deg + 180.0f;
-        else
-        if (dir.x == Mathf.Epsilon && dir.y < 0)
-            angle = 270;
-        else 
-        if (dir.x > 0 && dir.y < 0) 
-            angle = Mathf.Atan(dir.y / dir.x) * Mathf.Rad2Deg + 360.0f;
-
-
         if (angle >= 198.0f && angle < 270.0f)
             return 0;
         if (angle >= 126.0f && angle < 198.0f)
