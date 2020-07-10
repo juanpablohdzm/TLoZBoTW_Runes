@@ -21,8 +21,15 @@ public class RuneController : MonoBehaviour
    private List<Rune> runes = new List<Rune>();
    private Rune currentRune;
    private bool runeIsActive = false;
+   
+   #region UnitTestsVariables
+   #if UNITY_EDITOR
    public int AmountOfRunes => runes.Count;
-
+   public int AmountOfProfiles => profiles.Length;
+   public Rune CurrentRune => currentRune;
+   #endif
+   #endregion
+   
    private void Start()
    {
       CreateRunes();
@@ -96,20 +103,18 @@ public class RuneController : MonoBehaviour
       if(PlayerInput.Instance.ToggleRuneActivation) 
          ToggleRuneActivation();
       
-      if (currentRune == null) return;
-      if (currentRune.IsActive)
+      if (currentRune == null || !currentRune.IsActive) return;
+
+      if (!currentRune.IsRunning)
       {
-         if (!currentRune.IsRunning)
+         if (currentRune.ConfirmRune())
          {
-            if (currentRune.ConfirmRune())
-            {
-               if(currentRune.Profile.ShouldNotify) OnRuneConfirmed.Invoke(currentRune);
-            }
+            if(currentRune.Profile.ShouldNotify) OnRuneConfirmed.Invoke(currentRune);
          }
-         else
-         {
-            currentRune.UseRune();
-         }
+      }
+      else
+      {
+         currentRune.UseRune();
       }
    }
    private void ToggleRuneActivation()

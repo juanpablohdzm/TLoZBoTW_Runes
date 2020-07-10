@@ -21,7 +21,7 @@ public class UIRuneSlot : MonoBehaviour
     private Sequence s;
     
     
-    #region UnityTestsVariables
+    #region UnitTestsVariables
     #if UNITY_EDITOR
     public bool IsHighlited => backgroundImage.color == highlightColor;
         

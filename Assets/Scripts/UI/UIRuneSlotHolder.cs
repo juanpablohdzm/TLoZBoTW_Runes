@@ -19,7 +19,7 @@ public class UIRuneSlotHolder : MonoBehaviour
     public bool IsActive { get; private set; } = false;
 
 
-    #region UnityTestsVariables
+    #region UnitTestsVariables
     #if UNITY_EDITOR
     public int AmountOfSlots => slots.Length;
     public int Index => previousIndex;
