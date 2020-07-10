@@ -35,11 +35,11 @@ public class UIRuneSlotHolder : MonoBehaviour
 
     private void OnEnable()
     {
-        UnHighlightAllSlots();
         PlayEnableAnimation();
     }
     private void OnDisable()
     {
+        UnHighlightAllSlots();
         previousIndex = -1;
         IsActive = false;
     }
@@ -100,9 +100,12 @@ public class UIRuneSlotHolder : MonoBehaviour
                 return 1;
         if (angle >= 54.0f && angle < 126.0f)
             return 2;
-        if(angle>=342 && angle < 54)
+        if (angle >= 270 && angle < 342)
+            return 4;
+        if(angle>=342 || angle < 54)
             return 3;
-        return 4;
+
+        return -1;
     }
 
     public int? FindOpenSlot()

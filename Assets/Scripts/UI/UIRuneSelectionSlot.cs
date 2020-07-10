@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class UIRuneSelectionSlot : MonoBehaviour
 {
     [SerializeField] private Image image;
+
     public Sprite Icon
     {
         get => image.sprite;
@@ -18,4 +19,5 @@ public class UIRuneSelectionSlot : MonoBehaviour
             }
         }
     }
+
 }

@@ -8,7 +8,7 @@ public class PlayerInput : MonoBehaviour, IPlayerInput
     public Vector2 RightThumbStick => OVRInput.Get(OVRInput.Axis2D.SecondaryThumbstick);
     public float GetJoyStickAngle(ControllerType controllerType)
     {
-        Vector3 dir = Vector3.zero;
+        Vector2 dir = Vector2.zero;
         switch (controllerType)
         {
             case ControllerType.Left:
