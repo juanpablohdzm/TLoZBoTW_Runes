@@ -19,4 +19,9 @@ public class CameraController : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        if (Instance == this)
+            Instance = null;
+    }
 }

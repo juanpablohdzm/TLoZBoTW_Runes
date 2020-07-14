@@ -61,4 +61,10 @@ public class PlayerInput : MonoBehaviour, IPlayerInput
         
         DontDestroyOnLoad(gameObject);
     }
+
+    private void OnDestroy()
+    {
+        if (Instance == this)
+            Instance = null;
+    }
 }
