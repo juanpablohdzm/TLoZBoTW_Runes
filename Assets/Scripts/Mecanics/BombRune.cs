@@ -19,16 +19,18 @@ public class BombRune : Rune
     
     public override void ActivateRune()
     {
-        bomb = Object.Instantiate(prefab, player.RightHand.transform).GetComponent<Bomb>();
+        bomb = GameObject.Instantiate(prefab).GetComponent<Bomb>();
+        bomb.transform.parent = player.RightHand.transform;
+        bomb.transform.localPosition = Vector3.zero;
         bombRb = bomb.GetComponent<Rigidbody>();
-        bombRb.isKinematic = false;
+        bombRb.isKinematic = true;
         IsActive = true;
     }
 
     public override bool ConfirmRune()
     {
-        Vector3 velocity = PlayerInput.Instance.RightControllerAngularVelocity;
-        if (PlayerInput.Instance.RuneConfirm)
+        Vector3 velocity = PlayerInput.Instance.RightControllerVelocity*3.0f;
+        if (PlayerInput.Instance.Confirm)
         {
             bomb.transform.parent = null;
             bombRb.isKinematic = false;
@@ -42,7 +44,7 @@ public class BombRune : Rune
 
     public override void UseRune()
     {
-        if (PlayerInput.Instance.RuneConfirm)
+        if (PlayerInput.Instance.Confirm)
         {
             bomb.Explode();
             controller.DeactivateRune();
@@ -52,7 +54,7 @@ public class BombRune : Rune
     public override void DeactivateRune()
     {
         if(bomb != null)
-            Object.Destroy(bomb);
+            GameObject.Destroy(bomb.gameObject);
         bomb = null;
         bombRb = null;
         IsActive = false;

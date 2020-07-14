@@ -78,7 +78,7 @@ public class UIRuneSlotHolder : MonoBehaviour
             previousIndex = index;
         }
 
-        if (PlayerInput.Instance.RuneConfirm)
+        if (PlayerInput.Instance.UIRuneConfirm)
         {
             if (previousIndex != -1)
             {

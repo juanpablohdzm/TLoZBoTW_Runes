@@ -37,7 +37,7 @@ public class Magnesis : Rune
             {
                 if (PlayerInput.Instance.Confirm)
                 {
-                    laser = Object.Instantiate(laserPrefab, rightHandTransform).GetComponent<Laser>();
+                    laser = GameObject.Instantiate(laserPrefab, rightHandTransform).GetComponent<Laser>();
                     Sequence s = DOTween.Sequence();
                     s.Append(DOTween.To(() => laser.GetPosition(1), x => laser.SetPosition(1, x),
                         laser.transform.InverseTransformPoint(interactable.transform.position), 1));
@@ -75,18 +75,19 @@ public class Magnesis : Rune
         
         Vector2 throttle = PlayerInput.Instance.RightThumbStick;
         Vector3 controllerVelocity = PlayerInput.Instance.RightControllerVelocity;
+        Transform rightControllerTransform = player.RightHand.transform;
         
         laser.SetPosition(laser.PositionCount-1,laser.transform.InverseTransformPoint(interactableRigidbody.transform.position));
         laser.Direction = -throttle.x;
 
         Vector3 controllerVelocityNormalized = controllerVelocity.normalized;
         float controllerUpDirection = Vector3.Dot(controllerVelocityNormalized, Vector3.up);
-        float controllerRightDirection = Vector3.Dot(controllerVelocityNormalized, Vector3.right);
+        float controllerRightDirection = Vector3.Dot(controllerVelocityNormalized, rightControllerTransform.right);
         float scalar = Mathf.Clamp(controllerVelocity.magnitude, 0.0f, 1.0f);
 
-        Transform transform = player.transform;
+        Transform transform = CameraController.Instance.transform;
         interactableRigidbody.velocity = transform.forward * (throttle.y * speed * 0.5f) + 
-                                         transform.right * (controllerRightDirection * scalar * speed)+
+                                         transform.right * (controllerRightDirection * scalar * speed)+ transform.right *(throttle.x *speed * 0.5f)+
                                          transform.up * (controllerUpDirection * scalar * speed);
     }
 
@@ -94,7 +95,7 @@ public class Magnesis : Rune
     {
         if (laser != null)
         {
-            Object.Destroy(laser.gameObject);
+            GameObject.Destroy(laser.gameObject);
             laser = null;
         }
 

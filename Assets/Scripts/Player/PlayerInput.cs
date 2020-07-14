@@ -39,12 +39,10 @@ public class PlayerInput : MonoBehaviour, IPlayerInput
         return angle;
     }
     public bool Confirm => OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger);
-    public bool RuneConfirm => OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger);
+    public bool UIRuneConfirm => OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger);
     public Vector3 RightControllerVelocity => OVRInput.GetLocalControllerVelocity(OVRInput.Controller.RHand);
     public Vector3 RightControllerAngularVelocity => OVRInput.GetLocalControllerAngularVelocity(OVRInput.Controller.RHand);
     public Vector3 LeftControllerVelocity => OVRInput.GetLocalControllerVelocity(OVRInput.Controller.LHand);
-    
-
     public bool ToggleRuneActivation =>OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger);
 
     public static IPlayerInput Instance { get;  set; }

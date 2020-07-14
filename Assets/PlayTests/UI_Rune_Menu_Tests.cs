@@ -137,13 +137,13 @@ namespace Tests
             yield return new WaitForUpdate();
             var icon = selectionSlot.Icon;
             Assert.AreEqual(null,icon);
-            PlayerInput.Instance.RuneConfirm.Returns(true);
+            PlayerInput.Instance.UIRuneConfirm.Returns(true);
             
             yield return null;
             Assert.AreNotEqual(icon,selectionSlot.Icon);
             icon = selectionSlot.Icon;
             PlayerInput.Instance.GetJoyStickAngle(ControllerType.Left).Returns(90.0f);
-            PlayerInput.Instance.RuneConfirm.Returns(true);
+            PlayerInput.Instance.UIRuneConfirm.Returns(true);
 
             yield return null;
             Assert.AreNotEqual(icon,selectionSlot.Icon);

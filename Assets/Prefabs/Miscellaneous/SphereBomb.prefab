@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 5773521463565079788}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.2731383, y: 0.12527193, z: 1.9358349}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children:
   - {fileID: 1152067605474808178}
   m_Father: {fileID: 0}
@@ -124,8 +124,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c5e688135154993ae3960018413737d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionForce: 10
-  radius: 10
+  explosionForce: 500
+  radius: 3
+  interactables:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1 &7595628231367481440
 GameObject:
   m_ObjectHideFlags: 0
@@ -138,7 +141,6 @@ GameObject:
   - component: {fileID: 4393896293300001729}
   - component: {fileID: 8548668295363420962}
   - component: {fileID: 8743863804204412532}
-  - component: {fileID: 7816078099544435136}
   m_Layer: 0
   m_Name: Torus
   m_TagString: Untagged
@@ -2940,17 +2942,3 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
---- !u!64 &7816078099544435136
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7595628231367481440}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}

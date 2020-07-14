@@ -81,7 +81,7 @@ public class RuneController : MonoBehaviour
 
    private void ActivateRune()
    {
-      if (currentRune == null) return;
+      if (currentRune == null || currentRune.IsActive) return;
 
       runeIsActive = true;
       currentRune.ActivateRune();
@@ -90,7 +90,7 @@ public class RuneController : MonoBehaviour
 
    public void DeactivateRune()
    {
-      if (currentRune == null) return;
+      if (currentRune == null || !currentRune.IsActive) return;
 
       runeIsActive = false;
       currentRune.DeactivateRune();
@@ -98,7 +98,7 @@ public class RuneController : MonoBehaviour
    }
 
 
-   private void FixedUpdate()
+   private void Update()
    {
       if(PlayerInput.Instance.ToggleRuneActivation) 
          ToggleRuneActivation();
