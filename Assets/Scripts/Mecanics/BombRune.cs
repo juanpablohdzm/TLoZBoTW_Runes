@@ -9,9 +9,8 @@ public class BombRune : Rune
     private Bomb bomb;
     private Rigidbody bombRb;
 
-    public BombRune(RuneProfile runeProfile, Player player, GameObject prefab, RuneController controller)
+    public BombRune(RuneProfile runeProfile, Player player, GameObject prefab, RuneController controller) : base(runeProfile)
     {
-        this.profile = runeProfile;
         this.player = player;
         this.prefab = prefab;
         this.controller = controller;

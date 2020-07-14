@@ -12,11 +12,10 @@ public class Magnesis : Rune
     private float speed;
     private Laser laser;
 
-    public Magnesis(RuneProfile profile, Player player,int layerMask,float speed, GameObject laserPrefab)
+    public Magnesis(RuneProfile profile, Player player,int layerMask,float speed, GameObject laserPrefab): base(profile)
     {
         this.player = player;
         this.layerMask = layerMask;
-        this.profile = profile;
         this.speed = speed;
         this.laserPrefab = laserPrefab;
     }
