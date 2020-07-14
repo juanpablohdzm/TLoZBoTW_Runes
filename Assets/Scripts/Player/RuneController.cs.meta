@@ -1,9 +1,13 @@
 fileFormatVersion: 2
-guid: ee25a77c4f124e3a831dfacae4fd787f
+guid: 29965cc9e3874caf855f568f683c12bb
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
+  - laserPrefab: {instanceID: 0}
+  - prefabSphereBomb: {instanceID: 0}
+  - prefabBoxBomb: {instanceID: 0}
+  - OnCreatedRune: {fileID: 11400000, guid: f84ce757277055d4e8af212ac078846d, type: 2}
   - OnRuneSelected: {fileID: 11400000, guid: 846caca2d007e2f46af1ad3db6194544, type: 2}
   - OnRuneConfirmed: {fileID: 11400000, guid: bb4c4cc099160dd4e9642b9d54761248, type: 2}
   - OnRuneDeactivated: {fileID: 11400000, guid: 8925b68536dcbec46aec72b4e5d5bff3,
