@@ -18,6 +18,7 @@
       <Path>Library/PackageCache/com.unity.test-framework@1.1.14</Path>
       <Path>Library/PackageCache/com.unity.textmeshpro@2.0.1</Path>
       <Path>Library/PackageCache/com.unity.timeline@1.2.14</Path>
+      <Path>Library/PackageCache/com.unity.visualeffectgraph@7.3.1</Path>
       <Path>Library/PackageCache/com.unity.xr.legacyinputhelpers@2.1.4</Path>
       <Path>Library/PackageCache/com.unity.xr.management@3.2.12</Path>
       <Path>Library/PackageCache/com.unity.xr.management@3.2.13</Path>
@@ -30,6 +31,7 @@
       <Path>.idea</Path>
       <Path>Library</Path>
       <Path>Logs</Path>
+      <Path>Temp</Path>
       <Path>UserSettings</Path>
       <Path>obj</Path>
     </explicitExcludes>

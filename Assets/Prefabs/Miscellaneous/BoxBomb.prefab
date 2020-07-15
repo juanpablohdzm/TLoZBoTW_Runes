@@ -2939,6 +2939,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explosionForce: 500
   radius: 3
+  destroyDelay: 2
   interactables:
     serializedVersion: 2
     m_Bits: 256
+  explosionEffectPrefab: {fileID: 1329845292236604, guid: 9bba9cf244c53c5439505dfc96fdd11c,
+    type: 3}
