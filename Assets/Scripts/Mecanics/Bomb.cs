@@ -12,48 +12,33 @@ public class Bomb : MonoBehaviour
     [SerializeField] private float destroyDelay = 2.0f;
     [SerializeField] private LayerMask interactables;
     [SerializeField] private GameObject explosionEffectPrefab;
-   
-    private MeshRenderer mesh;
-    private Collider col;
-    private Rigidbody rb;
-
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.A))
-            Explode();
-    }
+    
+    private AudioSource audioSource;
+    private Collider[] results = new Collider[100];
 
     private void Awake()
     {
-        mesh = GetComponent<MeshRenderer>();
-        col = GetComponent<Collider>();
-        rb = GetComponent<Rigidbody>();
-
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void Explode()
     {
+        audioSource.Play();
         GameObject effect= Instantiate(explosionEffectPrefab, transform.position, Quaternion.identity);
-        
-        mesh.enabled = false;
-        col.isTrigger = true;
-        rb.isKinematic = true;
-        
-        
-        Collider[] objects = Physics.OverlapSphere(transform.position, radius,interactables.value);
 
-        foreach (var item in objects)
+        var size = Physics.OverlapSphereNonAlloc(transform.position, radius,results, interactables.value);
+        if (size > 0)
         {
-            if (item.attachedRigidbody != null)
-                item.attachedRigidbody.AddExplosionForce(explosionForce, transform.position, radius);
+            for (int index = 0; index < size; index++)
+            {
+                Collider item = results[index];
+                if (item.attachedRigidbody != null)
+                    item.attachedRigidbody.AddExplosionForce(explosionForce, transform.position, radius);
+            }
         }
-        Destroy(effect, destroyDelay);
-        Destroy(gameObject,destroyDelay);
-    }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color= Color.red;
-        Gizmos.DrawSphere(transform.position,radius);
+        Destroy(effect, destroyDelay);
+        Destroy(gameObject);
     }
+    
 }
