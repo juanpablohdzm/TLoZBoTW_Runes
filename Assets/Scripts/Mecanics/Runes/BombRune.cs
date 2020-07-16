@@ -19,8 +19,11 @@ public class BombRune : Rune
     public override void ActivateRune()
     {
         bomb = GameObject.Instantiate(prefab).GetComponent<Bomb>();
-        bomb.transform.parent = player.RightHand.transform;
-        bomb.transform.localPosition = Vector3.zero;
+        
+        Transform transform = bomb.transform;
+        transform.parent = player.RightHand.transform;
+        transform.localPosition = Vector3.zero;
+        
         bombRb = bomb.GetComponent<Rigidbody>();
         bombRb.isKinematic = true;
         IsActive = true;

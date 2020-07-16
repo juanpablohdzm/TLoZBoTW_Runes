@@ -98,7 +98,7 @@ public class RuneController : MonoBehaviour
    }
 
 
-   private void Update()
+   private void FixedUpdate()
    {
       if(PlayerInput.Instance.ToggleRuneActivation) 
          ToggleRuneActivation();

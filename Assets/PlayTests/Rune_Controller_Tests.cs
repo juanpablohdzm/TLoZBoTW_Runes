@@ -3,6 +3,7 @@ using NSubstitute;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
+using Utilities;
 
 namespace Tests
 {
@@ -18,7 +19,7 @@ namespace Tests
            Assert.AreEqual(runeController.AmountOfProfiles,runeController.AmountOfRunes);
            
            Object.DestroyImmediate(player.gameObject);
-           yield return null;
+           yield return new WaitForUpdate();
         }
 
         [UnityTest]
@@ -29,6 +30,9 @@ namespace Tests
             yield return null;
             
             Assert.Null(runeController.CurrentRune);
+            
+            Object.DestroyImmediate(player.gameObject);
+            yield return new WaitForUpdate();
         }
         
         [UnityTest]
@@ -42,7 +46,7 @@ namespace Tests
             Assert.AreEqual(false,runeController.CurrentRune.IsActive);
 
             Object.DestroyImmediate(player.gameObject);
-            yield return null;
+            yield return new WaitForUpdate();
         }
         
         [UnityTest]
@@ -54,11 +58,11 @@ namespace Tests
             
             runeController.SelectRune(0);
             PlayerInput.Instance.ToggleRuneActivation.Returns(true);
-            yield return null;
+            yield return new WaitForFixedUpdate();
             Assert.AreEqual(true,runeController.CurrentRune.IsActive);
 
             Object.DestroyImmediate(player.gameObject);
-            yield return null;
+            yield return new WaitForUpdate();
         }
         
         [UnityTest]
@@ -74,7 +78,7 @@ namespace Tests
             Assert.AreEqual(false,runeController.CurrentRune.IsRunning);
 
             Object.DestroyImmediate(player.gameObject);
-            yield return null;
+            yield return new WaitForUpdate();
         }
 
         [UnityTest]
@@ -93,7 +97,7 @@ namespace Tests
             Assert.AreEqual(current,runeController.CurrentRune);
 
             Object.DestroyImmediate(player.gameObject);
-            yield return null;
+            yield return new WaitForUpdate();
         }
         
         [UnityTest]
@@ -107,7 +111,7 @@ namespace Tests
             Assert.NotNull(runeController.CurrentRune);
             
             Object.DestroyImmediate(player.gameObject);
-            yield return null;
+            yield return new WaitForUpdate();
         }
 
         [UnityTest]
@@ -124,7 +128,7 @@ namespace Tests
             Assert.Null(runeController.CurrentRune);
             
             Object.DestroyImmediate(player.gameObject);
-            yield return null;
+            yield return new WaitForUpdate();
         }
         
         [UnityTest]
@@ -142,7 +146,7 @@ namespace Tests
             Assert.AreNotEqual(current,runeController.CurrentRune);
             
             Object.DestroyImmediate(player.gameObject);
-            yield return null;
+            yield return new WaitForUpdate();
         }
         
 
