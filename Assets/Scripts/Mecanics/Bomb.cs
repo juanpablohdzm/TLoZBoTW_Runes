@@ -12,6 +12,7 @@ public class Bomb : MonoBehaviour
     [SerializeField] private float destroyDelay = 2.0f;
     [SerializeField] private LayerMask interactables;
     [SerializeField] private GameObject explosionEffectPrefab;
+    [SerializeField] private AudioClip[] sfx;
     
     private AudioSource audioSource;
     private Collider[] results = new Collider[100];
@@ -21,9 +22,14 @@ public class Bomb : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
+    private void Start()
+    {
+        audioSource.PlayOneShot(sfx[0]);
+    }
+
     public void Explode()
     {
-        audioSource.Play();
+        audioSource.PlayOneShot(sfx[1]);
         GameObject effect= Instantiate(explosionEffectPrefab, transform.position, Quaternion.identity);
 
         var size = Physics.OverlapSphereNonAlloc(transform.position, radius,results, interactables.value);

@@ -134,6 +134,9 @@ MonoBehaviour:
     m_Bits: 256
   explosionEffectPrefab: {fileID: 1329845292236604, guid: 9bba9cf244c53c5439505dfc96fdd11c,
     type: 3}
+  sfx:
+  - {fileID: 8300000, guid: c3d85f048123687439e8d2a1b4831118, type: 3}
+  - {fileID: 8300000, guid: 99571e67ba171314d9a90be096563b08, type: 3}
 --- !u!82 &-3140559576900207706
 AudioSource:
   m_ObjectHideFlags: 0
