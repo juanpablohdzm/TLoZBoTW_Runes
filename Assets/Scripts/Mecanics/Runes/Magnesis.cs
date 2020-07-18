@@ -11,6 +11,8 @@ public class Magnesis : Rune
     private Rigidbody interactableRigidbody;
     private float speed;
     private Laser laser;
+    private RaycastHit[] hits = new RaycastHit[20];
+    
 
     public Magnesis(RuneProfile profile, Player player,int layerMask,float speed, GameObject laserPrefab): base(profile)
     {
@@ -29,9 +31,25 @@ public class Magnesis : Rune
         Transform rightHandTransform = player.RightHand.transform;
 
         RaycastHit hit;
-        if(Physics.Raycast(rightHandTransform.position,rightHandTransform.forward,out hit,100.0f,layerMask))
+        int size = Physics.RaycastNonAlloc(rightHandTransform.position, rightHandTransform.forward, hits, 100.0f, layerMask);
+        
+        if(size > 0)
         {
-            IRuneInteractable interactable = hit.collider.GetComponent<IRuneInteractable>();
+            float min = float.MaxValue;
+            int index = -1;
+            for (int i = 0; i < size; i++)
+            {
+                if (hits[i].distance < min)
+                {
+                    index = i;
+                    min = hits[i].distance;
+                }
+
+            }
+
+            if (index == -1) return false;
+            
+            IRuneInteractable interactable = hits[index].collider.GetComponent<IRuneInteractable>();
             if (interactable != null)
             {
                 if (PlayerInput.Instance.Confirm)
