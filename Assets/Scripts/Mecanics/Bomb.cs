@@ -15,21 +15,41 @@ public class Bomb : MonoBehaviour
     [SerializeField] private AudioClip[] sfx;
     
     private AudioSource audioSource;
-    private Collider[] results = new Collider[100];
+    private Collider[] results = new Collider[20];
+    private Rigidbody rb;
+    private Renderer[] rends;
+    private Collider col;
+    public bool IsExploding { get; private set; } = false;
+
+    #region UnitTestingVariables
+    #if UNITY_EDITOR
+    public float DestroyDelay => destroyDelay;
+    #endif
+    #endregion
 
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
+        rb = GetComponent<Rigidbody>();
+        rends = GetComponentsInChildren<Renderer>();
+        col = GetComponent<Collider>();
     }
 
     private void Start()
     {
-        audioSource.PlayOneShot(sfx[0]);
+        audioSource.clip = sfx[0];
+        audioSource.Play();
     }
-
+    
+    [ContextMenu("Explode")]
     public void Explode()
     {
-        audioSource.PlayOneShot(sfx[1]);
+        IsExploding = true;
+        
+        audioSource.clip =sfx[1];
+        audioSource.Play();
+
+        DisableComponents();
         GameObject effect= Instantiate(explosionEffectPrefab, transform.position, Quaternion.identity);
 
         var size = Physics.OverlapSphereNonAlloc(transform.position, radius,results, interactables.value);
@@ -44,7 +64,17 @@ public class Bomb : MonoBehaviour
         }
 
         Destroy(effect, destroyDelay);
-        Destroy(gameObject);
+        Destroy(gameObject,destroyDelay);
+    }
+
+    private void DisableComponents()
+    {
+        rb.isKinematic = true;
+        col.isTrigger = true;
+        foreach (var item in rends)
+        {
+            item.enabled = false;
+        }
     }
     
 }

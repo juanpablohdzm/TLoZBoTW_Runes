@@ -18,6 +18,7 @@ public class BombRune : Rune
     
     public override void ActivateRune()
     {
+        
         bomb = GameObject.Instantiate(prefab).GetComponent<Bomb>();
         
         Transform transform = bomb.transform;
@@ -55,7 +56,7 @@ public class BombRune : Rune
 
     public override void DeactivateRune()
     {
-        if(bomb != null)
+        if(bomb != null && !bomb.IsExploding)
             GameObject.Destroy(bomb.gameObject);
         bomb = null;
         bombRb = null;

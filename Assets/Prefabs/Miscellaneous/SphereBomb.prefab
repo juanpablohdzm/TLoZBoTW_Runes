@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5240967055685257064}
   - component: {fileID: -7417194779282742198}
   - component: {fileID: -3140559576900207706}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SphereBomb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -245,7 +245,7 @@ GameObject:
   - component: {fileID: 4393896293300001729}
   - component: {fileID: 8548668295363420962}
   - component: {fileID: 8743863804204412532}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Torus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3142,6 +3142,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7937387792690145869, guid: 750884cb1a6866148b51a87eac547d8c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 750884cb1a6866148b51a87eac547d8c, type: 3}

@@ -93,7 +93,7 @@ namespace Tests
             PlayerInput.Instance.Confirm.Returns(true);
             yield return new WaitForFixedUpdate();
             //IsRunning
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(bomb.DestroyDelay+0.1f);
             bomb = Object.FindObjectOfType<Bomb>();
             Assert.IsNull(bomb);
 
