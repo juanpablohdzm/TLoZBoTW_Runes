@@ -1,20 +1,21 @@
 ﻿using DG.Tweening;
 using UnityEngine;
 
-public class Magnesis : Rune
+public class MagnesisRune : Rune
 {
-    private readonly int layerMask;
+    private readonly Player player;
     private readonly GameObject laserPrefab;
-
-    private Player player;
+    private readonly RaycastHit[] hits = new RaycastHit[20];
+    private readonly int layerMask;
+    private readonly float speed;
+    
     private IRuneInteractable runeInteractable;
     private Rigidbody interactableRigidbody;
-    private float speed;
     private Laser laser;
-    private RaycastHit[] hits = new RaycastHit[20];
+    private bool hasBeenConfirmed = false;
     
 
-    public Magnesis(RuneProfile profile, Player player,int layerMask,float speed, GameObject laserPrefab): base(profile)
+    public MagnesisRune(RuneProfile profile, Player player,int layerMask,float speed, GameObject laserPrefab): base(profile)
     {
         this.player = player;
         this.layerMask = layerMask;
@@ -28,6 +29,8 @@ public class Magnesis : Rune
 
     public override bool ConfirmRune()
     {
+        if (hasBeenConfirmed) return false;
+        
         Transform rightHandTransform = player.RightHand.transform;
 
         RaycastHit hit;
@@ -54,6 +57,7 @@ public class Magnesis : Rune
             {
                 if (PlayerInput.Instance.Confirm)
                 {
+                    hasBeenConfirmed = true;
                     laser = GameObject.Instantiate(laserPrefab, rightHandTransform).GetComponent<Laser>();
                     Sequence s = DOTween.Sequence();
                     s.Append(DOTween.To(() => laser.GetPosition(1), x => laser.SetPosition(1, x),
@@ -127,5 +131,6 @@ public class Magnesis : Rune
         interactableRigidbody = null;
         IsActive = false;
         IsRunning = false;
+        hasBeenConfirmed = false;
     }
 }

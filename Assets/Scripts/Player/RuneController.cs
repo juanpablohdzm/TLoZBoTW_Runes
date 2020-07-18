@@ -43,7 +43,7 @@ public class RuneController : MonoBehaviour
          RuneProfile profile = profiles[index];
          if (profile.RuneType == RuneType.Magnesis)
          {
-            runes.Add(new Magnesis(profile, player, interactableLayer.value, 5.0f, laserPrefab));
+            runes.Add(new MagnesisRune(profile, player, interactableLayer.value, 5.0f, laserPrefab));
          }
          else if (profile.RuneType == RuneType.RemoteBombSphere)
          {
