@@ -1,27 +1,29 @@
 ﻿using DG.Tweening;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 
 public class MagnesisRune : Rune
 {
     private readonly Player player;
-    private readonly GameObject laserPrefab;
     private readonly RaycastHit[] hits = new RaycastHit[20];
     private readonly int layerMask;
     private readonly float speed;
     
+    private GameObject laserPrefab;
     private IRuneInteractable runeInteractable;
     private Rigidbody interactableRigidbody;
     private Laser laser;
     private bool hasBeenConfirmed = false;
     
 
-    public MagnesisRune(RuneProfile profile, Player player,int layerMask,float speed, GameObject laserPrefab): base(profile)
+    public MagnesisRune(RuneProfile profile, Player player,int layerMask,float speed): base(profile)
     {
         this.player = player;
         this.layerMask = layerMask;
         this.speed = speed;
-        this.laserPrefab = laserPrefab;
+        Addressables.LoadAssetAsync<GameObject>("Assets/Prefabs/Miscellaneous/Laser.prefab").Completed +=
+            handle => { laserPrefab = handle.Result;};
     }
     public override void ActivateRune()
     {

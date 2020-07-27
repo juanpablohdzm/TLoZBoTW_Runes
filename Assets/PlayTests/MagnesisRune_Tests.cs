@@ -14,7 +14,7 @@ namespace Tests
         {
             var player = UniversalTestHelpers.GetPlayer();
             var runeController = Object.FindObjectOfType<RuneController>();
-            yield return null;
+            yield return new WaitForSeconds(1.0f);
 
             runeController.SelectRune(0);
             PlayerInput.Instance.ToggleRuneActivation.Returns(true);
@@ -32,7 +32,7 @@ namespace Tests
             var runeController = Object.FindObjectOfType<RuneController>();
             var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
             cube.transform.position = player.transform.position + player.transform.forward;
-            yield return null;
+            yield return new WaitForSeconds(1.0f);
 
             runeController.SelectRune(0);
             PlayerInput.Instance.ToggleRuneActivation.Returns(true);
@@ -59,7 +59,7 @@ namespace Tests
             cube.AddComponent<IRuneInteractable>();
             cube.layer = 8;
             cube.GetComponent<Rigidbody>().useGravity = false;
-            yield return null;
+            yield return new WaitForSeconds(1.0f);
 
             runeController.SelectRune(0);
             PlayerInput.Instance.ToggleRuneActivation.Returns(true);
@@ -87,7 +87,7 @@ namespace Tests
             cube.AddComponent<IRuneInteractable>();
             cube.layer = 8;
             cube.GetComponent<Rigidbody>().useGravity = false;
-            yield return null;
+            yield return new WaitForSeconds(1.0f);
 
             runeController.SelectRune(0);
             PlayerInput.Instance.ToggleRuneActivation.Returns(true);
@@ -115,7 +115,7 @@ namespace Tests
         {
             var player = UniversalTestHelpers.GetPlayer();
             var runeController = Object.FindObjectOfType<RuneController>();
-            yield return null;
+            yield return new WaitForSeconds(1.0f);
 
             runeController.SelectRune(0);
             PlayerInput.Instance.ToggleRuneActivation.Returns(true);

@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Default Local Group
+  m_EditorClassIdentifier: 
+  m_GroupName: Default Local Group
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 45635f06e337dad4eb89929566484457
+  m_SerializeEntries:
+  - m_GUID: 249d03a7ac182604ca5caf0fb262c7e0
+    m_Address: Assets/Prefabs/Miscellaneous/Laser.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 2b5900fc75a10c043872beccdf69354f
+    m_Address: Assets/Prefabs/Miscellaneous/SphereBomb.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: cbb300cdaaf059641882bec17f1fd399
+    m_Address: Assets/Prefabs/Miscellaneous/Iceblock.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: dafbdc131c6dcf5489db1fc71c6e6451
+    m_Address: Assets/Prefabs/Miscellaneous/BoxBomb.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: ffd13330faec04c48aacd0bd5cbfd5ef
+    m_Address: Assets/Prefabs/Miscellaneous/Target.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: aa485dcc69888964e94f17db64e98526, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: b8d48c089040b8e418ff05a9aa235b6f, type: 2}
+    - {fileID: 11400000, guid: f87cae9d8fae1b14490359051d201352, type: 2}

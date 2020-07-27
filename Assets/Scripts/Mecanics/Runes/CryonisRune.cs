@@ -1,25 +1,28 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 public class CryonisRune : Rune
 {
     private readonly Player player;
     private readonly LayerMask layerMask;
-    private readonly GameObject targetPrefab;
-    private readonly GameObject iceBlockPrefab;
     private readonly RuneController controller;
     
+    private GameObject targetPrefab;
+    private GameObject iceBlockPrefab;
     private RaycastHit[] hits;
     private GameObject target;
     private IceBlock[] blocks;
     private int currentIndex = -1;
 
-    public CryonisRune(RuneProfile profile,Player player,LayerMask layerMask,GameObject targetPrefab,GameObject iceBlockPrefab, RuneController controller) : base(profile)
+    public CryonisRune(RuneProfile profile,Player player,LayerMask layerMask, RuneController controller) : base(profile)
     {
         this.player = player;
         this.layerMask = layerMask;
-        this.targetPrefab = targetPrefab;
-        this.iceBlockPrefab = iceBlockPrefab;
+        Addressables.LoadAssetAsync<GameObject>("Assets/Prefabs/Miscellaneous/Target.prefab").Completed +=
+            handle => { targetPrefab = handle.Result;};
+        Addressables.LoadAssetAsync<GameObject>("Assets/Prefabs/Miscellaneous/Iceblock.prefab").Completed +=
+            handle => { iceBlockPrefab = handle.Result;};
         this.controller = controller;
         hits = new RaycastHit[20];
         blocks = new IceBlock[3];

@@ -1,25 +1,37 @@
-﻿using UnityEngine;
+﻿using NSubstitute;
+using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 public class BombRune : Rune
 {
     private readonly Player player;
-    private readonly GameObject prefab;
     private readonly RuneController controller;
 
+    private GameObject bombPrefab;
     private Bomb bomb;
     private Rigidbody bombRb;
 
-    public BombRune(RuneProfile runeProfile, Player player, GameObject prefab, RuneController controller) : base(runeProfile)
+    public BombRune(RuneProfile runeProfile, Player player, RuneController controller) : base(runeProfile)
     {
         this.player = player;
-        this.prefab = prefab;
         this.controller = controller;
+        if (runeProfile.RuneType == RuneType.RemoteBombBox)
+        {
+            Addressables.LoadAssetAsync<GameObject>("Assets/Prefabs/Miscellaneous/BoxBomb.prefab").Completed += 
+                handle => { bombPrefab = handle.Result; };
+        }
+        else
+        {
+            if(runeProfile.RuneType == RuneType.RemoteBombSphere)
+                Addressables.LoadAssetAsync<GameObject>("Assets/Prefabs/Miscellaneous/SphereBomb.prefab").Completed +=
+                    handle => { bombPrefab = handle.Result; };
+        }
     }
     
     public override void ActivateRune()
     {
         
-        bomb = GameObject.Instantiate(prefab).GetComponent<Bomb>();
+        bomb = GameObject.Instantiate(bombPrefab).GetComponent<Bomb>();
         
         Transform transform = bomb.transform;
         transform.parent = player.RightHand.transform;

@@ -14,7 +14,7 @@ namespace Tests
         {
            var player =UniversalTestHelpers.GetPlayer();
            var runeController = player.GetComponent<RuneController>();
-           yield return null;
+           yield return new WaitForSeconds(1.0f);
            
            Assert.AreEqual(runeController.AmountOfProfiles,runeController.AmountOfRunes);
            
@@ -27,7 +27,7 @@ namespace Tests
         {
             var player =UniversalTestHelpers.GetPlayer();
             var runeController = player.GetComponent<RuneController>();
-            yield return null;
+            yield return new WaitForSeconds(1.0f);
             
             Assert.Null(runeController.CurrentRune);
             
@@ -40,7 +40,7 @@ namespace Tests
         {
             var player =UniversalTestHelpers.GetPlayer();
             var runeController = player.GetComponent<RuneController>();
-            yield return null;
+            yield return new WaitForSeconds(1.0f);
             
             runeController.SelectRune(0);
             Assert.AreEqual(false,runeController.CurrentRune.IsActive);
@@ -54,7 +54,7 @@ namespace Tests
         {
             var player =UniversalTestHelpers.GetPlayer();
             var runeController = player.GetComponent<RuneController>();
-            yield return null;
+            yield return new WaitForSeconds(1.0f);
             
             runeController.SelectRune(0);
             PlayerInput.Instance.ToggleRuneActivation.Returns(true);
@@ -70,7 +70,7 @@ namespace Tests
         {
             var player =UniversalTestHelpers.GetPlayer();
             var runeController = player.GetComponent<RuneController>();
-            yield return null;
+            yield return new WaitForSeconds(1.0f);
             
             runeController.SelectRune(0);
             PlayerInput.Instance.ToggleRuneActivation.Returns(true);
@@ -86,7 +86,7 @@ namespace Tests
         {
             var player =UniversalTestHelpers.GetPlayer();
             var runeController = player.GetComponent<RuneController>();
-            yield return null;
+            yield return new WaitForSeconds(1.0f);
             
             runeController.SelectRune(0);
             PlayerInput.Instance.ToggleRuneActivation.Returns(true);
@@ -105,7 +105,7 @@ namespace Tests
         {
             var player =UniversalTestHelpers.GetPlayer();
             var runeController = player.GetComponent<RuneController>();
-            yield return null;
+            yield return new WaitForSeconds(1.0f);
 
             runeController.SelectRune(0);
             Assert.NotNull(runeController.CurrentRune);
@@ -119,7 +119,7 @@ namespace Tests
         {
             var player =UniversalTestHelpers.GetPlayer();
             var runeController = player.GetComponent<RuneController>();
-            yield return null;
+            yield return new WaitForSeconds(1.0f);
             
             runeController.SelectRune(0);
             Assert.NotNull(runeController.CurrentRune);
@@ -136,7 +136,7 @@ namespace Tests
         {
             var player =UniversalTestHelpers.GetPlayer();
             var runeController = player.GetComponent<RuneController>();
-            yield return null;
+            yield return new WaitForSeconds(1.0f);
             
             runeController.SelectRune(0);
             Assert.NotNull(runeController.CurrentRune);

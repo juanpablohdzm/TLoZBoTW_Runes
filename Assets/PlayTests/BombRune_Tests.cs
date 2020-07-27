@@ -15,7 +15,7 @@ namespace Tests
         {
             var player = UniversalTestHelpers.GetPlayer();
             var runeController = Object.FindObjectOfType<RuneController>();
-            yield return null;
+            yield return new WaitForSeconds(1.0f);
             
             runeController.SelectRune(1);
             PlayerInput.Instance.ToggleRuneActivation.Returns(true);
@@ -33,7 +33,7 @@ namespace Tests
         {
             var player = UniversalTestHelpers.GetPlayer();
             var runeController = Object.FindObjectOfType<RuneController>();
-            yield return null;
+            yield return new WaitForSeconds(1.0f);
             
             runeController.SelectRune(1);
             PlayerInput.Instance.ToggleRuneActivation.Returns(true);
@@ -57,7 +57,7 @@ namespace Tests
         {
             var player = UniversalTestHelpers.GetPlayer();
             var runeController = Object.FindObjectOfType<RuneController>();
-            yield return null;
+            yield return new WaitForSeconds(1.0f);
             
             runeController.SelectRune(1);
             PlayerInput.Instance.ToggleRuneActivation.Returns(true);
@@ -81,7 +81,7 @@ namespace Tests
         {
             var player = UniversalTestHelpers.GetPlayer();
             var runeController = Object.FindObjectOfType<RuneController>();
-            yield return null;
+            yield return new WaitForSeconds(1.0f);
             
             runeController.SelectRune(1);
             PlayerInput.Instance.ToggleRuneActivation.Returns(true);
@@ -106,7 +106,7 @@ namespace Tests
         {
             var player = UniversalTestHelpers.GetPlayer();
             var runeController = Object.FindObjectOfType<RuneController>();
-            yield return null;
+            yield return new WaitForSeconds(1.0f);
             
             runeController.SelectRune(1);
             PlayerInput.Instance.ToggleRuneActivation.Returns(true);

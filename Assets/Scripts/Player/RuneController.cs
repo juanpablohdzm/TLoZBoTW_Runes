@@ -9,13 +9,7 @@ public class RuneController : MonoBehaviour
    
    [SerializeField] private LayerMask interactableLayer;
    [SerializeField] private LayerMask cryonisLayerMask;
-   
-   [SerializeField] private GameObject laserPrefab;
-   [SerializeField] private GameObject prefabSphereBomb;
-   [SerializeField] private GameObject prefabBoxBomb;
-   [SerializeField] private GameObject targetPrefab;
-   [SerializeField] private GameObject iceblockPrefab;
-   
+
    [SerializeField] private RuneEvent OnCreatedRune;
    [SerializeField] private RuneEvent OnRuneSelected;
    [SerializeField] private RuneEvent OnRuneConfirmed;
@@ -46,19 +40,19 @@ public class RuneController : MonoBehaviour
          RuneProfile profile = profiles[index];
          if (profile.RuneType == RuneType.Magnesis)
          {
-            runes.Add(new MagnesisRune(profile, player, interactableLayer.value, 5.0f, laserPrefab));
+            runes.Add(new MagnesisRune(profile, player, interactableLayer.value, 5.0f));
          }
          else if (profile.RuneType == RuneType.RemoteBombSphere)
          {
-            runes.Add(new BombRune(profile, player, prefabSphereBomb, this));
+            runes.Add(new BombRune(profile, player, this));
          }
          else if (profile.RuneType == RuneType.RemoteBombBox)
          {
-            runes.Add(new BombRune(profile, player, prefabBoxBomb, this));
+            runes.Add(new BombRune(profile, player, this));
          }
          else if (profile.RuneType == RuneType.Cryonis)
          {
-            runes.Add(new CryonisRune(profile,player,cryonisLayerMask,targetPrefab,iceblockPrefab,this));
+            runes.Add(new CryonisRune(profile,player,cryonisLayerMask,this));
          }
          else
          {
