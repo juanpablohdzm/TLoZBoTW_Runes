@@ -447,6 +447,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 359828790, guid: 8209a49ce967ef44db57a3f5119a046d, type: 3}
+      propertyPath: profiles.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 359828790, guid: 8209a49ce967ef44db57a3f5119a046d, type: 3}
+      propertyPath: profiles.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: d0d0983a71429a64d9f5312bef95cc44,
+        type: 2}
+    - target: {fileID: 359828790, guid: 8209a49ce967ef44db57a3f5119a046d, type: 3}
+      propertyPath: targetPrefab
+      value: 
+      objectReference: {fileID: 5842641922861066994, guid: ffd13330faec04c48aacd0bd5cbfd5ef,
+        type: 3}
+    - target: {fileID: 359828790, guid: 8209a49ce967ef44db57a3f5119a046d, type: 3}
+      propertyPath: iceblockPrefab
+      value: 
+      objectReference: {fileID: 307700718239464375, guid: cbb300cdaaf059641882bec17f1fd399,
+        type: 3}
     - target: {fileID: 5213510970381333582, guid: 8209a49ce967ef44db57a3f5119a046d,
         type: 3}
       propertyPath: m_IsActive

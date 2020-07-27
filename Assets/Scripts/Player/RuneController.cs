@@ -8,10 +8,13 @@ public class RuneController : MonoBehaviour
    [SerializeField] private RuneProfile[] profiles;
    
    [SerializeField] private LayerMask interactableLayer;
+   [SerializeField] private LayerMask cryonisLayerMask;
    
    [SerializeField] private GameObject laserPrefab;
    [SerializeField] private GameObject prefabSphereBomb;
    [SerializeField] private GameObject prefabBoxBomb;
+   [SerializeField] private GameObject targetPrefab;
+   [SerializeField] private GameObject iceblockPrefab;
    
    [SerializeField] private RuneEvent OnCreatedRune;
    [SerializeField] private RuneEvent OnRuneSelected;
@@ -52,6 +55,10 @@ public class RuneController : MonoBehaviour
          else if (profile.RuneType == RuneType.RemoteBombBox)
          {
             runes.Add(new BombRune(profile, player, prefabBoxBomb, this));
+         }
+         else if (profile.RuneType == RuneType.Cryonis)
+         {
+            runes.Add(new CryonisRune(profile,player,cryonisLayerMask,targetPrefab,iceblockPrefab,this));
          }
          else
          {

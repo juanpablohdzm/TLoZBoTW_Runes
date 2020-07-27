@@ -1,6 +1,7 @@
 ﻿using DG.Tweening;
 using UnityEngine;
 
+
 public class MagnesisRune : Rune
 {
     private readonly Player player;
