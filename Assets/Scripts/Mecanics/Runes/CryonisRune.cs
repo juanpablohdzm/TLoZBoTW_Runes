@@ -75,6 +75,7 @@ public class CryonisRune : Rune
     {
         GetNextIceBlock();
         blocks[currentIndex].gameObject.SetActive(true);
+        blocks[currentIndex].transform.position = target.transform.position;
         controller.DeactivateRune();
     }
 
@@ -85,16 +86,16 @@ public class CryonisRune : Rune
         {
             blocks[currentIndex] = GameObject.Instantiate(iceBlockPrefab, target.transform.position, Quaternion.identity).GetComponent<IceBlock>();
         }
+        else
+        {
+            blocks[currentIndex].gameObject.SetActive(false);
+        }
     }
 
     public override void DeactivateRune()
     {
         if(target != null)
             GameObject.DestroyImmediate(target);
-        foreach (IceBlock block in blocks)
-        {
-            block.gameObject.SetActive(false);
-        }
         target = null;
         IsActive = false;
         IsRunning = false;

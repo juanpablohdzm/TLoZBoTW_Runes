@@ -41,7 +41,7 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
-  - m_GUID: ffd13330faec04c48aacd0bd5cbfd5ef
+  - m_GUID: e59ad3446a41c5d42b6fb0a7d60f0f61
     m_Address: Assets/Prefabs/Miscellaneous/Target.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []

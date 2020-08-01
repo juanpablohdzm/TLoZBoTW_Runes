@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1d8bed197ff4cb1a1e3931f3fda8070, type: 3}
   m_Name: Cryonis
   m_EditorClassIdentifier: 
-  RuneType: 0
+  RuneType: 3
   Color: {r: 0.2205882, g: 0.70973605, b: 1, a: 1}
   Icon: {fileID: 21300000, guid: 62ac1683333d15c40b51f123fa93f029, type: 3}
   ShouldNotify: 1

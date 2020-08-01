@@ -14,6 +14,7 @@ public class IRuneInteractable : MonoBehaviour, IPointerEnterHandler, IPointerEx
     
     private Color highlightColor;
     private bool RuneIsActive = false;
+    private bool RuneIsValid = false;
     private Color previousColor;
 
     private void Awake()
@@ -37,11 +38,26 @@ public class IRuneInteractable : MonoBehaviour, IPointerEnterHandler, IPointerEx
     private void Deactivate()
     {
         RuneIsActive = false;
+        RuneIsValid = false;
         mat.SetColor(EmissionColor, Color.black);
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if(RuneIsActive && RuneIsValid)
+            mat.SetColor(EmissionColor,Color.yellow);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if(RuneIsActive && RuneIsValid)
+            mat.SetColor(EmissionColor,highlightColor);
+            
     }
     
     private void HandleRuneSelected(Rune rune)
     {
+        RuneIsValid = rune.Profile.RuneType != RuneType.Cryonis;
         RuneIsActive = true;
         highlightColor = rune.Profile.Color;
         mat.SetColor(EmissionColor, highlightColor);
@@ -55,19 +71,6 @@ public class IRuneInteractable : MonoBehaviour, IPointerEnterHandler, IPointerEx
     private void HandleRuneDeactivated(Rune rune)
     {
         Deactivate();
-    }
-
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        if(RuneIsActive)
-            mat.SetColor(EmissionColor,Color.yellow);
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        if(RuneIsActive)
-            mat.SetColor(EmissionColor,highlightColor);
-            
     }
 
     private void OnDestroy()

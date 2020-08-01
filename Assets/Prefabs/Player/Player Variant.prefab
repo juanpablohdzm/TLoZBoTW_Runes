@@ -466,6 +466,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 307700718239464375, guid: cbb300cdaaf059641882bec17f1fd399,
         type: 3}
+    - target: {fileID: 359828790, guid: 8209a49ce967ef44db57a3f5119a046d, type: 3}
+      propertyPath: cryonisLayerMask.m_Bits
+      value: 1024
+      objectReference: {fileID: 0}
     - target: {fileID: 5213510970381333582, guid: 8209a49ce967ef44db57a3f5119a046d,
         type: 3}
       propertyPath: m_IsActive
