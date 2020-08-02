@@ -17,6 +17,11 @@ public class CryonisRune : Rune
     private int currentIndex = -1;
     private bool isTargetNotNull = false;
 
+    #region UnitTestingVariables
+    #if UNITY_EDITOR
+    #endif
+    #endregion
+
     public CryonisRune(RuneProfile profile,Player player,LayerMask layerMask, RuneController controller) : base(profile)
     {
         this.player = player;
