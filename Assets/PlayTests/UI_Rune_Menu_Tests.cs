@@ -151,6 +151,45 @@ namespace Tests
             Object.DestroyImmediate(player.gameObject);
             yield return null;
         }
+
+        [UnityTest]
+        public IEnumerator selectedIcon_cant_change_when_rune_is_active()
+        {
+            var player = UniversalTestHelpers.GetPlayer();
+            var runeController = player.GetComponent<RuneController>();
+            var selectionSlot = Object.FindObjectOfType<UIRuneSelectionSlot>();
+            PlayerInput.Instance.LeftThumbStick.Returns(new Vector2(1.0f, 0.0f));
+            //Activate menu
+            yield return new WaitForSeconds(1.1f);
+            PlayerInput.Instance.GetJoyStickAngle(ControllerType.Left).Returns(268.0f);
+            //Set joystick to rune angle
+            yield return new WaitForUpdate();
+            var icon = selectionSlot.Icon;
+            Assert.AreEqual(null,icon);
+            PlayerInput.Instance.UIRuneConfirm.Returns(true);
+            //Select rune
+            yield return null;
+            PlayerInput.Instance.ToggleRuneActivation.Returns(true);
+            //Click rune activation button
+            yield return null;
+            Assert.IsTrue(runeController.CurrentRune.IsActive);
+            PlayerInput.Instance.ToggleRuneActivation.Returns(false);
+            //Release rune activation button 
+            yield return null;
+            Assert.AreNotEqual(icon,selectionSlot.Icon);
+            //Check selection slot is not the same as previous one in this case it was null
+            icon = selectionSlot.Icon;
+            PlayerInput.Instance.GetJoyStickAngle(ControllerType.Left).Returns(90.0f);
+            PlayerInput.Instance.UIRuneConfirm.Returns(true);
+            //Set joystick angle to another rune and select rune 
+
+            yield return null;
+            Assert.AreEqual(icon,selectionSlot.Icon);
+            //Check that icon was not selected because rune is active.
+            
+            Object.DestroyImmediate(player.gameObject);
+            yield return null;
+        }
             
             
     }

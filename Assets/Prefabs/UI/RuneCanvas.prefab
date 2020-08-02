@@ -96,6 +96,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   runeSlotHolder: {fileID: 8429588172927152407}
   OnCreatedRune: {fileID: 11400000, guid: f84ce757277055d4e8af212ac078846d, type: 2}
+  OnActivatedRune: {fileID: 11400000, guid: 9cc2006b477cc474e86ca1c3bd735199, type: 2}
+  OnDeactivatedRune: {fileID: 11400000, guid: 8925b68536dcbec46aec72b4e5d5bff3, type: 2}
 --- !u!1001 &8740474913162795084
 PrefabInstance:
   m_ObjectHideFlags: 0

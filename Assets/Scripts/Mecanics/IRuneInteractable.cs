@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 [RequireComponent(typeof(Rigidbody))]
 public class IRuneInteractable : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeField] private RuneEvent OnRuneSelected;
+    [SerializeField] private RuneEvent OnRuneActivated;
     [SerializeField] private RuneEvent OnRuneConfirmed;
     [SerializeField] private RuneEvent OnRuneDeactivated;
     private static readonly int EmissionColor = Shader.PropertyToID("_EmissionColor");
@@ -19,8 +19,8 @@ public class IRuneInteractable : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     private void Awake()
     {
-        if (OnRuneSelected != null) 
-            OnRuneSelected.AddListener(HandleRuneSelected);
+        if (OnRuneActivated != null) 
+            OnRuneActivated.AddListener(HandleRuneActivated);
         if (OnRuneConfirmed != null) 
             OnRuneConfirmed.AddListener(HandleRuneConfirmed);
         if (OnRuneDeactivated != null) 
@@ -55,9 +55,10 @@ public class IRuneInteractable : MonoBehaviour, IPointerEnterHandler, IPointerEx
             
     }
     
-    private void HandleRuneSelected(Rune rune)
+    private void HandleRuneActivated(Rune rune)
     {
-        RuneIsValid = rune.Profile.RuneType != RuneType.Cryonis;
+        RuneIsValid = rune.Profile.RuneType == RuneType.Magnesis;
+        if (!RuneIsValid) return;
         RuneIsActive = true;
         highlightColor = rune.Profile.Color;
         mat.SetColor(EmissionColor, highlightColor);
@@ -75,8 +76,8 @@ public class IRuneInteractable : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     private void OnDestroy()
     {
-        if (OnRuneSelected != null) 
-            OnRuneSelected.RemoveListener(HandleRuneSelected);
+        if (OnRuneActivated != null) 
+            OnRuneActivated.RemoveListener(HandleRuneActivated);
         if (OnRuneConfirmed != null) 
             OnRuneConfirmed.RemoveListener(HandleRuneConfirmed);
         if (OnRuneDeactivated != null) 

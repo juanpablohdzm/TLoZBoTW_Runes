@@ -28,6 +28,6 @@ public class ScreenFade : MonoBehaviour
             color.a = x;
             image.color = color;
         }, 0.0f, fadeDuration).SetEase(ease));
-        s.OnComplete(() => { image.gameObject.SetActive(false); });
+        s.OnComplete(() => { gameObject.SetActive(false); });
     }
 }

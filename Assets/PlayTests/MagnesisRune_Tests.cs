@@ -83,7 +83,7 @@ namespace Tests
             var player = UniversalTestHelpers.GetPlayer();
             var runeController = Object.FindObjectOfType<RuneController>();
             var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            cube.transform.position = player.transform.position + player.transform.forward;
+            cube.transform.position = player.RightHand.transform.position + player.RightHand.transform.forward;
             cube.AddComponent<IRuneInteractable>();
             cube.layer = 8;
             cube.GetComponent<Rigidbody>().useGravity = false;

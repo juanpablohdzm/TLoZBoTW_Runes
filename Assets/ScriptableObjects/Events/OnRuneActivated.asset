@@ -9,10 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1d8bed197ff4cb1a1e3931f3fda8070, type: 3}
-  m_Name: Cryonis
+  m_Script: {fileID: 11500000, guid: 02205f048e3e7f84689af18d304faef6, type: 3}
+  m_Name: OnRuneActivated
   m_EditorClassIdentifier: 
-  RuneType: 3
-  Color: {r: 0.2205882, g: 0.70973605, b: 1, a: 1}
-  Icon: {fileID: 21300000, guid: 62ac1683333d15c40b51f123fa93f029, type: 3}
-  IsActiveOnSelected: 1

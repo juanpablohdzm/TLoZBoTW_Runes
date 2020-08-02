@@ -17,6 +17,7 @@ public class UIRuneSlotHolder : MonoBehaviour
     private int previousIndex = -1;
 
     public bool IsActive { get; private set; } = false;
+    public bool SlotCanBeChanged { get; set; } = true;
 
 
     #region UnitTestsVariables
@@ -83,8 +84,11 @@ public class UIRuneSlotHolder : MonoBehaviour
             if (previousIndex != -1)
             {
                 slots[previousIndex].UnHighlight();
-                selectionSlot.Icon = slots[previousIndex].Image.sprite;
-                OnRuneSlotSelected?.Invoke(previousIndex);
+                if (SlotCanBeChanged)
+                {
+                    selectionSlot.Icon = slots[previousIndex].Image.sprite;
+                    OnRuneSlotSelected?.Invoke(previousIndex);
+                }
             }
         }
 

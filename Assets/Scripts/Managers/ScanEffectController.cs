@@ -2,7 +2,7 @@
 
 public class ScanEffectController : MonoBehaviour
 {
-    [SerializeField] private RuneEvent OnRuneSelected;
+    [SerializeField] private RuneEvent OnRuneActivated;
     [SerializeField] private RuneEvent OnRuneConfirmed;
     [SerializeField] private RuneEvent OnRuneDeactivated;
     [SerializeField] private Material scanMaterial;
@@ -11,8 +11,8 @@ public class ScanEffectController : MonoBehaviour
 
     private void Awake()
     {
-        if (OnRuneSelected != null) 
-            OnRuneSelected.AddListener(HandleRuneSelected);
+        if (OnRuneActivated != null) 
+            OnRuneActivated.AddListener(HandleRuneActivated);
         if (OnRuneConfirmed != null) 
             OnRuneConfirmed.AddListener(HandleRuneConfirmed);
         if (OnRuneDeactivated != null) 
@@ -24,8 +24,10 @@ public class ScanEffectController : MonoBehaviour
         scanMaterial.SetFloat(Activate,0.0f);
     }
 
-    private void HandleRuneSelected(Rune rune)
+    private void HandleRuneActivated(Rune rune)
     {
+        if (rune.Profile.RuneType == RuneType.RemoteBombBox ||
+            rune.Profile.RuneType == RuneType.RemoteBombSphere) return;
         scanMaterial.SetColor(EmissionColor,rune.Profile.Color);
         scanMaterial.SetFloat(Activate,1.0f);
     }
@@ -38,8 +40,8 @@ public class ScanEffectController : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (OnRuneSelected != null) 
-            OnRuneSelected.RemoveListener(HandleRuneSelected);
+        if (OnRuneActivated != null) 
+            OnRuneActivated.RemoveListener(HandleRuneActivated);
         if (OnRuneConfirmed != null) 
             OnRuneConfirmed.RemoveListener(HandleRuneConfirmed);
         if (OnRuneDeactivated != null) 

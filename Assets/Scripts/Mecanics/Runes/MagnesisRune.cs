@@ -15,7 +15,8 @@ public class MagnesisRune : Rune
     private Rigidbody interactableRigidbody;
     private Laser laser;
     private bool hasBeenConfirmed = false;
-    
+    private bool isInteractableRigidbodyNotNull = false;
+
 
     public MagnesisRune(RuneProfile profile, Player player,int layerMask,float speed): base(profile)
     {
@@ -25,6 +26,8 @@ public class MagnesisRune : Rune
         Addressables.LoadAssetAsync<GameObject>("Assets/Prefabs/Miscellaneous/Laser.prefab").Completed +=
             handle => { laserPrefab = handle.Result;};
     }
+    
+
     public override void ActivateRune()
     {
         IsActive = true;
@@ -87,12 +90,14 @@ public class MagnesisRune : Rune
         interactableRigidbody.drag = 0.3f;
 
         IsRunning = true;
+        isInteractableRigidbodyNotNull = true;
     }
 
     public override void UseRune()
     {
 
-        if(interactableRigidbody == null) return;
+        if(!isInteractableRigidbodyNotNull) 
+            return;
         
         runeInteractable.SetColor(Color.yellow);
         
@@ -101,13 +106,13 @@ public class MagnesisRune : Rune
         Vector3 controllerVelocity = PlayerInput.Instance.RightControllerVelocity;
         Transform rightControllerTransform = player.RightHand.transform;
         
-        laser.SetPosition(laser.PositionCount-1,laser.transform.InverseTransformPoint(interactableRigidbody.transform.position));
-        laser.Direction = -throttle.x;
-
         Vector3 controllerVelocityNormalized = controllerVelocity.normalized;
         float controllerUpDirection = Vector3.Dot(controllerVelocityNormalized, Vector3.up);
         float controllerRightDirection = Vector3.Dot(controllerVelocityNormalized, rightControllerTransform.right);
         float scalar = Mathf.Clamp(controllerVelocity.magnitude, 0.0f, 1.0f);
+        
+        laser.SetPosition(laser.PositionCount-1,laser.transform.InverseTransformPoint(interactableRigidbody.transform.position));
+        laser.Direction = -throttle.x-controllerRightDirection;
 
         Transform transform = CameraController.Instance.transform;
         interactableRigidbody.velocity = transform.forward * (throttle.y * speed * 0.5f) + 
@@ -126,12 +131,13 @@ public class MagnesisRune : Rune
         if (runeInteractable != null) 
             runeInteractable.SetColor(Color.black);
 
-        if (interactableRigidbody != null)
+        if (isInteractableRigidbodyNotNull)
         {
             interactableRigidbody.useGravity = true;
             interactableRigidbody.constraints = RigidbodyConstraints.None;
         }
         interactableRigidbody = null;
+        isInteractableRigidbodyNotNull = false;
         IsActive = false;
         IsRunning = false;
         hasBeenConfirmed = false;

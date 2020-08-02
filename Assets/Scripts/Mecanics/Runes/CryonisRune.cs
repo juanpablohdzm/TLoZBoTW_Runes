@@ -13,7 +13,9 @@ public class CryonisRune : Rune
     private RaycastHit[] hits;
     private GameObject target;
     private IceBlock[] blocks;
+    
     private int currentIndex = -1;
+    private bool isTargetNotNull = false;
 
     public CryonisRune(RuneProfile profile,Player player,LayerMask layerMask, RuneController controller) : base(profile)
     {
@@ -38,7 +40,13 @@ public class CryonisRune : Rune
         Transform rightHandTransform = player.RightHand.transform;
         int size = Physics.RaycastNonAlloc(rightHandTransform.position, rightHandTransform.forward, hits, 10.0f, layerMask.value);
 
-        if (size <= 0) return false;
+        if (size <= 0)
+        {
+            if(isTargetNotNull)
+                target.SetActive(false);
+            return false;
+            
+        }
         
         float min = float.MaxValue;
         int index = -1;
@@ -51,15 +59,33 @@ public class CryonisRune : Rune
             }
 
         }
-        if (index == -1) return false;
 
-        if (target == null) 
-            target = GameObject.Instantiate(targetPrefab, hits[index].point, Quaternion.identity);
+        if (index == -1)
+        {
+            if(isTargetNotNull)
+                target.SetActive(false);
+            return false;
+        }
+
+        if (!isTargetNotNull)
+        {
+            Vector3 position = hits[index].point;
+            Vector3 normal = hits[index].normal;
+            Vector3 forward = Vector3.Cross(Vector3.right, normal);
+            target = GameObject.Instantiate(targetPrefab,position, Quaternion.LookRotation(forward,normal));
+            isTargetNotNull = true;
+        }
         else
         {
             if(!target.activeSelf)
                 target.SetActive(true);
-            target.transform.position = hits[index].point;
+            
+            Vector3 position = hits[index].point;
+            Vector3 normal = hits[index].normal;
+            Vector3 forward = Vector3.Cross(Vector3.right, normal);
+            
+            target.transform.position = position;
+            target.transform.rotation = Quaternion.LookRotation(forward, normal);
         }
 
         if (PlayerInput.Instance.Confirm)
@@ -84,7 +110,7 @@ public class CryonisRune : Rune
         currentIndex = (currentIndex + 1)% blocks.Length;
         if (blocks[currentIndex] == null)
         {
-            blocks[currentIndex] = GameObject.Instantiate(iceBlockPrefab, target.transform.position, Quaternion.identity).GetComponent<IceBlock>();
+            blocks[currentIndex] = GameObject.Instantiate(iceBlockPrefab, target.transform.position, target.transform.rotation).GetComponent<IceBlock>();
         }
         else
         {
@@ -94,10 +120,11 @@ public class CryonisRune : Rune
 
     public override void DeactivateRune()
     {
-        if(target != null)
+        if(isTargetNotNull)
             GameObject.DestroyImmediate(target);
         target = null;
         IsActive = false;
         IsRunning = false;
+        isTargetNotNull = false;
     }
 }

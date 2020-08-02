@@ -12,6 +12,7 @@ public class RuneController : MonoBehaviour
 
    [SerializeField] private RuneEvent OnCreatedRune;
    [SerializeField] private RuneEvent OnRuneSelected;
+   [SerializeField] private RuneEvent OnRuneActivated;
    [SerializeField] private RuneEvent OnRuneConfirmed;
    [SerializeField] private RuneEvent OnRuneDeactivated;
    
@@ -63,21 +64,21 @@ public class RuneController : MonoBehaviour
       }
    }
 
-   public bool SelectRune(int index)
+   public void SelectRune(int index)
    {
       if (index < 0 || index >= runes.Count)
       {
          currentRune = null;
-         return false;
+         return;
       }
 
       Rune rune = runes[index];
       
-      if (rune == currentRune) return false;
-      if (currentRune != null && currentRune.IsActive) return false;
+      if (rune == currentRune) return;
+      if (currentRune != null && currentRune.IsActive) return;
       
       currentRune = rune;
-      return true;
+      OnRuneSelected.Invoke(currentRune);
    }
 
    private void ActivateRune()
@@ -85,8 +86,8 @@ public class RuneController : MonoBehaviour
       if (currentRune == null || currentRune.IsActive) return;
 
       runeIsActive = true;
-      currentRune.ActivateRune();
-      if(currentRune.Profile.ShouldNotify) OnRuneSelected.Invoke(currentRune);
+      currentRune.ActivateRune(); 
+      OnRuneActivated.Invoke(currentRune);
    }
 
    public void DeactivateRune()
@@ -95,7 +96,7 @@ public class RuneController : MonoBehaviour
 
       runeIsActive = false;
       currentRune.DeactivateRune();
-      if(currentRune.Profile.ShouldNotify) OnRuneDeactivated.Invoke(currentRune);
+      OnRuneDeactivated.Invoke(currentRune);
    }
 
 
@@ -110,7 +111,7 @@ public class RuneController : MonoBehaviour
       {
          if (currentRune.ConfirmRune())
          {
-            if(currentRune.Profile.ShouldNotify) OnRuneConfirmed.Invoke(currentRune);
+            OnRuneConfirmed.Invoke(currentRune);
          }
       }
       else

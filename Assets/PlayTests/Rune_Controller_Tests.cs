@@ -91,8 +91,8 @@ namespace Tests
             runeController.SelectRune(0);
             PlayerInput.Instance.ToggleRuneActivation.Returns(true);
             yield return null;
-            
             var current = runeController.CurrentRune;
+            PlayerInput.Instance.ToggleRuneActivation.Returns(false);
             runeController.SelectRune(1);
             Assert.AreEqual(current,runeController.CurrentRune);
 
