@@ -1,4 +1,4 @@
 ﻿public enum RuneType
 {
-    Magnesis, RemoteBombSphere, RemoteBombBox, Cryonis
+    Magnesis, RemoteBombSphere, RemoteBombBox, Cryonis, Stasis
 }

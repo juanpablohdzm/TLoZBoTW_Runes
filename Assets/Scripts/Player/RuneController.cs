@@ -9,6 +9,7 @@ public class RuneController : MonoBehaviour
    
    [SerializeField] private LayerMask interactableLayer;
    [SerializeField] private LayerMask cryonisLayerMask;
+   [SerializeField] private LayerMask iceblockLayerMask;
 
    [SerializeField] private RuneEvent OnCreatedRune;
    [SerializeField] private RuneEvent OnRuneSelected;
@@ -53,7 +54,11 @@ public class RuneController : MonoBehaviour
          }
          else if (profile.RuneType == RuneType.Cryonis)
          {
-            runes.Add(new CryonisRune(profile,player,cryonisLayerMask,this));
+            runes.Add(new CryonisRune(profile,player,cryonisLayerMask,iceblockLayerMask,this));
+         }
+         else if (profile.RuneType == RuneType.Stasis)
+         {
+            runes.Add(new StasisRune(profile,player,interactableLayer.value,this));
          }
          else
          {

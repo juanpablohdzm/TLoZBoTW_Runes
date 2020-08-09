@@ -9,8 +9,8 @@ public class IceBlockTarget : MonoBehaviour
     {
         s = DOTween.Sequence();
         s.SetLoops(-1);
-        s.Append(transform.DOScale(new Vector3(1.0f, 0.0f, 1.0f),0.0f));
-        s.Append(transform.DOScale(Vector3.one, 1.0f));
+        s.Append(transform.DOScale(new Vector3(1.2f, 0.0f, 1.2f),0.0f));
+        s.Append(transform.DOScale(new Vector3(1.2f, 1.0f, 1.2f), 1.0f));
     }
 
     private void OnDisable()

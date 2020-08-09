@@ -2,7 +2,6 @@
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-
 public class MagnesisRune : Rune
 {
     private readonly Player player;
@@ -38,8 +37,7 @@ public class MagnesisRune : Rune
         if (hasBeenConfirmed) return false;
         
         Transform rightHandTransform = player.RightHand.transform;
-
-        RaycastHit hit;
+        
         int size = Physics.RaycastNonAlloc(rightHandTransform.position, rightHandTransform.forward, hits, 100.0f, layerMask);
         
         if(size > 0)

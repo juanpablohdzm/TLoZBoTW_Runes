@@ -6,6 +6,7 @@ public class CryonisRune : Rune
 {
     private readonly Player player;
     private readonly LayerMask layerMask;
+    private readonly LayerMask iceblockMask;
     private readonly RuneController controller;
     
     private GameObject targetPrefab;
@@ -13,6 +14,7 @@ public class CryonisRune : Rune
     private RaycastHit[] hits;
     private GameObject target;
     private IceBlock[] blocks;
+    private Collider[] colliders;
     
     private int currentIndex = -1;
     private bool isTargetNotNull = false;
@@ -22,10 +24,11 @@ public class CryonisRune : Rune
     #endif
     #endregion
 
-    public CryonisRune(RuneProfile profile,Player player,LayerMask layerMask, RuneController controller) : base(profile)
+    public CryonisRune(RuneProfile profile,Player player,LayerMask layerMask,LayerMask iceblockMask, RuneController controller) : base(profile)
     {
         this.player = player;
         this.layerMask = layerMask;
+        this.iceblockMask = iceblockMask;
         Addressables.LoadAssetAsync<GameObject>("Assets/Prefabs/Miscellaneous/Target.prefab").Completed +=
             handle => { targetPrefab = handle.Result;};
         Addressables.LoadAssetAsync<GameObject>("Assets/Prefabs/Miscellaneous/Iceblock.prefab").Completed +=
@@ -33,6 +36,7 @@ public class CryonisRune : Rune
         this.controller = controller;
         hits = new RaycastHit[20];
         blocks = new IceBlock[3];
+        colliders = new Collider[3];
     }
 
     public override void ActivateRune()
@@ -95,6 +99,8 @@ public class CryonisRune : Rune
 
         if (PlayerInput.Instance.Confirm)
         {
+            if (Physics.OverlapSphereNonAlloc(target.transform.position, 1.0f, colliders, iceblockMask.value) > 0)
+                return false;
             target.SetActive(false);
             IsRunning = true;
             return true;

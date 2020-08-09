@@ -21,9 +21,9 @@ public class IceBlock : MonoBehaviour
     private void OnEnable()
     {
         audioSource.Play();
-        transform.localScale  = new Vector3(1.0f,0.0f,1.0f);
+        transform.localScale  = new Vector3(1.2f,-0.2f,1.2f);
         Sequence s = DOTween.Sequence();
-        s.Append(transform.DOScale(Vector3.one, 1.0f));
+        s.Append(transform.DOScale(new Vector3(1.2f,1.0f,1.2f), 1.0f));
         s.OnComplete(() => { IsActive = true; });
 
         deactivationTime = Time.realtimeSinceStartup+ lifeTimeSpan;

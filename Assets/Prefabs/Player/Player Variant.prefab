@@ -449,7 +449,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 359828790, guid: 8209a49ce967ef44db57a3f5119a046d, type: 3}
       propertyPath: profiles.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 359828790, guid: 8209a49ce967ef44db57a3f5119a046d, type: 3}
       propertyPath: profiles.Array.data[3]
@@ -475,6 +475,15 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 9cc2006b477cc474e86ca1c3bd735199,
         type: 2}
+    - target: {fileID: 359828790, guid: 8209a49ce967ef44db57a3f5119a046d, type: 3}
+      propertyPath: profiles.Array.data[4]
+      value: 
+      objectReference: {fileID: 11400000, guid: 4766b307d7ab48a4f92f62624b5cd7e5,
+        type: 2}
+    - target: {fileID: 359828790, guid: 8209a49ce967ef44db57a3f5119a046d, type: 3}
+      propertyPath: iceblockLayerMask.m_Bits
+      value: 2048
+      objectReference: {fileID: 0}
     - target: {fileID: 5213510970381333582, guid: 8209a49ce967ef44db57a3f5119a046d,
         type: 3}
       propertyPath: m_IsActive
@@ -538,7 +547,7 @@ PrefabInstance:
     - target: {fileID: 5214349543744675039, guid: 8209a49ce967ef44db57a3f5119a046d,
         type: 3}
       propertyPath: m_Name
-      value: Player
+      value: Player Variant
       objectReference: {fileID: 0}
     - target: {fileID: 5214349545648273526, guid: 8209a49ce967ef44db57a3f5119a046d,
         type: 3}

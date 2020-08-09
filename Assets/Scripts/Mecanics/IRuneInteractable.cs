@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Rigidbody),typeof(AudioSource))]
 public class IRuneInteractable : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private RuneEvent OnRuneActivated;
@@ -16,6 +16,7 @@ public class IRuneInteractable : MonoBehaviour, IPointerEnterHandler, IPointerEx
     private bool RuneIsActive = false;
     private bool RuneIsValid = false;
     private Color previousColor;
+    private AudioSource audioSource;
 
     private void Awake()
     {
@@ -26,6 +27,7 @@ public class IRuneInteractable : MonoBehaviour, IPointerEnterHandler, IPointerEx
         if (OnRuneDeactivated != null) 
             OnRuneDeactivated.AddListener(HandleRuneDeactivated);
         mat = GetComponent<Renderer>().material;
+        audioSource = GetComponent<AudioSource>();
     }
 
    
@@ -33,6 +35,12 @@ public class IRuneInteractable : MonoBehaviour, IPointerEnterHandler, IPointerEx
     {
         if (color == previousColor) return;
         mat.SetColor(EmissionColor, color);
+    }
+
+    public virtual void PlaySFX(AudioClip clip)
+    {
+        audioSource.clip = clip;
+        audioSource.Play();        
     }
 
     private void Deactivate()
@@ -45,7 +53,7 @@ public class IRuneInteractable : MonoBehaviour, IPointerEnterHandler, IPointerEx
     public void OnPointerEnter(PointerEventData eventData)
     {
         if(RuneIsActive && RuneIsValid)
-            mat.SetColor(EmissionColor,Color.yellow);
+            mat.SetColor(EmissionColor,Color.green);
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -57,7 +65,7 @@ public class IRuneInteractable : MonoBehaviour, IPointerEnterHandler, IPointerEx
     
     private void HandleRuneActivated(Rune rune)
     {
-        RuneIsValid = rune.Profile.RuneType == RuneType.Magnesis;
+        RuneIsValid = rune.Profile.RuneType == RuneType.Magnesis || rune.Profile.RuneType == RuneType.Stasis;
         if (!RuneIsValid) return;
         RuneIsActive = true;
         highlightColor = rune.Profile.Color;
@@ -72,6 +80,7 @@ public class IRuneInteractable : MonoBehaviour, IPointerEnterHandler, IPointerEx
     private void HandleRuneDeactivated(Rune rune)
     {
         Deactivate();
+        audioSource.Stop();
     }
 
     private void OnDestroy()
