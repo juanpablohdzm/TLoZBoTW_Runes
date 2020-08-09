@@ -105,8 +105,11 @@ public class CryonisRune : Rune
     public override void UseRune()
     {
         GetNextIceBlock();
+        
         blocks[currentIndex].gameObject.SetActive(true);
         blocks[currentIndex].transform.position = target.transform.position;
+        blocks[currentIndex].transform.rotation = target.transform.rotation;
+        
         controller.DeactivateRune();
     }
 
