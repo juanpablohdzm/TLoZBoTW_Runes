@@ -8,7 +8,7 @@ public class StasisRune : Rune
     private readonly RuneController controller;
     private AudioClip countdownSFX;
 
-    private const float delayTime = 10.0f;
+    private float delayTime = 10.0f;
 
     
     private RaycastHit[] hits = new RaycastHit[10];
@@ -16,6 +16,18 @@ public class StasisRune : Rune
     private IRuneInteractable runeInteractable;
     private bool interactableIsNotNull = false;
     private float activatedTime;
+
+    #region UnitTestingVariables
+#if UNITY_EDITOR
+    public float DelayTime
+    {
+        get => delayTime;
+        set => delayTime = value;
+    }
+    
+    
+#endif
+    #endregion
 
 
     public StasisRune(RuneProfile profile, Player player, int layerMask,RuneController controller) : base(profile)

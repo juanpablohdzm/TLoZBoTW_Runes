@@ -120,7 +120,7 @@ namespace Tests
             var iceblock = GameObject.FindObjectOfType<IceBlock>(); //First ice block spwan
             Assert.IsNotNull(iceblock);
             
-            
+            player.transform.position += Vector3.up*1.5f;
             PlayerInput.Instance.ToggleRuneActivation.Returns(true);
             yield return new WaitForFixedUpdate();
             PlayerInput.Instance.ToggleRuneActivation.Returns(false);
@@ -128,6 +128,7 @@ namespace Tests
             yield return  new WaitForSeconds(1.0f);
             PlayerInput.Instance.Confirm.Returns(false);
             
+            player.transform.position += Vector3.up*1.5f;
             PlayerInput.Instance.ToggleRuneActivation.Returns(true);
             yield return new WaitForFixedUpdate();
             PlayerInput.Instance.ToggleRuneActivation.Returns(false);
@@ -135,6 +136,7 @@ namespace Tests
             yield return  new WaitForSeconds(1.0f);
             PlayerInput.Instance.Confirm.Returns(false);
             
+            player.transform.position += Vector3.up*1.5f;
             PlayerInput.Instance.ToggleRuneActivation.Returns(true);
             yield return new WaitForFixedUpdate();
             PlayerInput.Instance.ToggleRuneActivation.Returns(false);
@@ -143,7 +145,7 @@ namespace Tests
             PlayerInput.Instance.Confirm.Returns(false);
             var iceblocks = GameObject.FindObjectsOfType<IceBlock>();
             Assert.AreEqual(3,iceblocks.Length);
-
+            
             Object.DestroyImmediate(player.gameObject);
             Object.DestroyImmediate(plane);
             for (int i = 0; i < iceblocks.Length; i++)
