@@ -90,18 +90,20 @@ public class RuneController : MonoBehaviour
    {
       if (currentRune == null || currentRune.IsActive) return;
 
-      runeIsActive = true;
       currentRune.ActivateRune(); 
-      OnRuneActivated.Invoke(currentRune);
+      runeIsActive = currentRune.IsActive;
+      if(runeIsActive)
+         OnRuneActivated.Invoke(currentRune);
    }
 
    public void DeactivateRune()
    {
       if (currentRune == null || !currentRune.IsActive) return;
 
-      runeIsActive = false;
       currentRune.DeactivateRune();
-      OnRuneDeactivated.Invoke(currentRune);
+      runeIsActive = currentRune.IsActive;
+      if(!runeIsActive)
+         OnRuneDeactivated.Invoke(currentRune);
    }
 
 
