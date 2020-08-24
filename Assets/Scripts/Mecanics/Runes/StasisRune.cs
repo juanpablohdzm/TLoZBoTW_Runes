@@ -6,9 +6,10 @@ public class StasisRune : Rune
     private readonly Player player;
     private readonly int layerMask;
     private readonly RuneController controller;
-    private AudioClip countdownSFX;
+    private AudioClip countdownSfx;
+    private GameObject stasisVfxPrefab;
 
-    private float delayTime = 10.0f;
+    private float delayTime = 12.0f;
 
     
     private RaycastHit[] hits = new RaycastHit[10];
@@ -16,6 +17,8 @@ public class StasisRune : Rune
     private IRuneInteractable runeInteractable;
     private bool interactableIsNotNull = false;
     private float activatedTime;
+    private ParticleSystem stasisVfx;
+    private bool isStasisVfxNotNull = false ;
 
     #region UnitTestingVariables
 #if UNITY_EDITOR
@@ -36,12 +39,16 @@ public class StasisRune : Rune
         this.layerMask = layerMask;
         this.controller = controller;
         Addressables.LoadAssetAsync<AudioClip>("Assets/Art/Music/Stasis Rune Sound Effect.wav").Completed +=
-            handle => countdownSFX = handle.Result;
+            handle => countdownSfx = handle.Result;
+        Addressables.LoadAssetAsync<GameObject>("Assets/Effects/StasisChains_Particles.prefab").Completed +=
+            handle => stasisVfxPrefab = handle.Result;
     }
 
     public override void ActivateRune()
     {
         IsActive = true;
+        stasisVfx = GameObject.Instantiate(stasisVfxPrefab).GetComponent<ParticleSystem>();
+        isStasisVfxNotNull = true;
     }
 
     public override bool ConfirmRune()
@@ -71,10 +78,16 @@ public class StasisRune : Rune
             {
                 if (PlayerInput.Instance.Confirm)
                 {
+                    stasisVfx.gameObject.SetActive(true);
+                    stasisVfx.transform.position = interactable.transform.position;
+                    stasisVfx.Play();
+                    
                     runeInteractable = interactable;
-                    runeInteractable.PlaySFX(countdownSFX);
+                    runeInteractable.PlaySFX(countdownSfx);
+                    
                     interactableRb = interactable.GetComponent<Rigidbody>();
                     interactableIsNotNull = true;
+                    
                     activatedTime = Time.realtimeSinceStartup+delayTime;
                     IsRunning = true;
                     return true;
@@ -111,6 +124,11 @@ public class StasisRune : Rune
             runeInteractable = null;
             interactableRb = null;
         }
-        
+
+        if (isStasisVfxNotNull)
+        {
+            stasisVfx.gameObject.SetActive(false);
+            stasisVfx.Stop();
+        }
     }
 }

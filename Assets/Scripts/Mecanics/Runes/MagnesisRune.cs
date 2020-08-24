@@ -15,6 +15,7 @@ public class MagnesisRune : Rune
     private Laser laser;
     private bool hasBeenConfirmed = false;
     private bool isInteractableRigidbodyNotNull = false;
+    private bool laserIsNull = true;
 
 
     public MagnesisRune(RuneProfile profile, Player player,int layerMask,float speed): base(profile)
@@ -62,7 +63,15 @@ public class MagnesisRune : Rune
                 if (PlayerInput.Instance.Confirm)
                 {
                     hasBeenConfirmed = true;
-                    laser = GameObject.Instantiate(laserPrefab, rightHandTransform).GetComponent<Laser>();
+                    if (laserIsNull)
+                    {
+                        laser = GameObject.Instantiate(laserPrefab, rightHandTransform).GetComponent<Laser>();
+                        laserIsNull = false;
+                    }
+                    else
+                    {
+                        laser.gameObject.SetActive(true);
+                    }
                     Sequence s = DOTween.Sequence();
                     s.Append(DOTween.To(() => laser.GetPosition(1), x => laser.SetPosition(1, x),
                         laser.transform.InverseTransformPoint(interactable.transform.position), 1));
@@ -120,10 +129,9 @@ public class MagnesisRune : Rune
 
     public override void DeactivateRune()
     {
-        if (laser != null)
+        if (!laserIsNull)
         {
-            GameObject.Destroy(laser.gameObject);
-            laser = null;
+            laser.gameObject.SetActive(false);
         }
 
         if (runeInteractable != null) 
