@@ -35,6 +35,12 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
+  - m_GUID: 8bcd8bd1f5afcb64e827a895558a2c76
+    m_Address: Assets/Effects/StasisChains_Particles.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: cbb300cdaaf059641882bec17f1fd399
     m_Address: Assets/Prefabs/Miscellaneous/Iceblock.prefab
     m_ReadOnly: 0
